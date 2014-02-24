@@ -1,6 +1,5 @@
 package main;
 
-import music.Hikari;
 import actions.ActionFabrique;
 import actions.Event;
 import robot.EventListener;
@@ -41,7 +40,10 @@ public class TestThread extends EventListener {
 			nextclawsOpenure = 1.0f - nextclawsOpenure;
 			break;
 		case WAITEND :
-			attente = false;
+			if(event.getName().equals("end"))
+				end = true;
+			else
+				attente = false;
 			break;
 		default:
 			break;
@@ -51,11 +53,11 @@ public class TestThread extends EventListener {
 	public void act() {
 		if(debut) {
 			debut = false;
-			ActionFabrique.playMusic(new Hikari(), true);
+			ActionFabrique.wait(10000, "end", true);
 		}
 		if(!clawsMoving) {
 			if(attente) {
-				ActionFabrique.wait(500, true);
+				ActionFabrique.wait(500, "claws", true);
 			}
 			else {
 				clawsMoving = true;

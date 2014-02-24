@@ -23,7 +23,7 @@ public class ActionFabrique {
 		new GoBackward(duration, createThread);
 	}
 	
-	public static void wait(int duration, boolean createThread) {
-		new Wait(duration, createThread);
+	public static void wait(int duration, String name, boolean createThread) {
+		new Wait(duration, createThread, name);
 	}
 }
