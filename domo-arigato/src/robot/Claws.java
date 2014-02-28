@@ -1,5 +1,6 @@
 package robot;
 
+import actions.RunnableRobot;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.util.Delay;
 
@@ -7,6 +8,7 @@ public class Claws {
 	private final float TOTAL_DELAY = 160;
 	private float state;
 	private NXTRegulatedMotor clawsMotor;
+	private RunnableRobot thread;
 	
 	Claws() {
 		state = 1.0f;
@@ -61,5 +63,13 @@ public class Claws {
 	 */
 	public void open(boolean immediateReturn) {
 		setState(1.0f, immediateReturn);
+	}
+	
+	public void setRunnableRobot(RunnableRobot thread) {
+		this.thread = thread;
+	}
+	
+	public RunnableRobot getRunnableRobot() {
+		return thread;
 	}
 }
