@@ -23,5 +23,7 @@ class Rotate extends RunnableRobot {
 		if(!getInterrupted()) {
 			Robot.getInstance().warn(new Event(TypeEvent.ROTATEEND));
 		}
+		else
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.ROTATEEND.toString()));
 	}
 }

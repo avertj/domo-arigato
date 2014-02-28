@@ -119,6 +119,8 @@ public abstract class Music extends RunnableRobot {
 		if(!getInterrupted()) {
 			Robot.getInstance().warn(new Event(TypeEvent.PLAYMUSICEND, name));
 		}
+		else
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.PLAYMUSICEND.toString()));
 	}
 	
 	protected abstract void playMusic();

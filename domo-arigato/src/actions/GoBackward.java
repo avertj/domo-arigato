@@ -26,5 +26,7 @@ class GoBackward extends RunnableRobot {
 			Robot.getInstance().getMotion().getPilot().stop();
 			Robot.getInstance().warn(new Event(TypeEvent.GOBACKWARDEND));
 		}
+		else
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOBACKWARDEND.toString()));
 	}
 }

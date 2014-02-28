@@ -26,5 +26,7 @@ class GoForward extends RunnableRobot {
 			Robot.getInstance().getMotion().getPilot().stop();
 			Robot.getInstance().warn(new Event(TypeEvent.GOFORWARDEND));
 		}
+		else
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARDEND.toString()));
 	}
 }
