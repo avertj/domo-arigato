@@ -3,12 +3,15 @@ package actions;
 import lejos.util.Delay;
 import robot.Robot;
 
-class GoForward implements Runnable {
+class GoForward extends RunnableRobot {
 	private int duration;
 	
 	GoForward(int duration, boolean createThread) {
 		this.duration = duration;
 		if(createThread) {
+			if(Robot.getInstance().getMotion().getRunnableRobot() != null)
+				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
+			Robot.getInstance().getMotion().setRunnableRobot(this);
 			Thread thread = new Thread(this);
 			thread.start();
 		}
@@ -19,7 +22,9 @@ class GoForward implements Runnable {
 	public void run() {
 		Robot.getInstance().getMotion().getPilot().forward();
 		Delay.msDelay(duration);
-		Robot.getInstance().getMotion().getPilot().stop();
-		Robot.getInstance().warn(new Event(TypeEvent.GOFORWARDEND));
+		if(!getInterrupted()) {
+			Robot.getInstance().getMotion().getPilot().stop();
+			Robot.getInstance().warn(new Event(TypeEvent.GOFORWARDEND));
+		}
 	}
 }

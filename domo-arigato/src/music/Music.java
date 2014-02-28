@@ -1,11 +1,12 @@
 package music;
 
 import actions.Event;
+import actions.RunnableRobot;
 import actions.TypeEvent;
 import robot.Robot;
 import lejos.nxt.Sound;
 
-public abstract class Music implements Runnable {
+public abstract class Music extends RunnableRobot {
 	protected int[] DO = new int[5];
 	protected int[] REb = new int[5];
 	protected int[] RE = new int[5];
@@ -115,7 +116,9 @@ public abstract class Music implements Runnable {
 	
 	public void run() {
 		playMusic();
-		Robot.getInstance().warn(new Event(TypeEvent.PLAYMUSICEND, name));
+		if(!getInterrupted()) {
+			Robot.getInstance().warn(new Event(TypeEvent.PLAYMUSICEND, name));
+		}
 	}
 	
 	protected abstract void playMusic();

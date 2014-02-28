@@ -7,6 +7,8 @@ import robot.EventListener;
 public class Test2Thread extends EventListener {
 	int state = 0;
 	boolean robotMoving = false;
+	boolean debut = true;
+	boolean end = false;
 
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
@@ -22,12 +24,18 @@ public class Test2Thread extends EventListener {
 			state = 0;
 			robotMoving = false;
 			break;
+
+		case ROTATEEND :
+			end = true;
 		default:
 			break;
 		}
 	}
 
 	public void act() {
+		if(debut) {
+			ActionFabrique.rotate(360, true);
+		}
 		if(!robotMoving) {
 			robotMoving = true;
 			switch(state)
@@ -39,6 +47,9 @@ public class Test2Thread extends EventListener {
 				ActionFabrique.goBackward(500, true);
 				break;
 			}
+		}
+		if(end) {
+			stop();
 		}
 	}
 }

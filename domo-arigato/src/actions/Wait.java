@@ -3,7 +3,7 @@ package actions;
 import lejos.util.Delay;
 import robot.Robot;
 
-class Wait implements Runnable {
+class Wait extends RunnableRobot {
 	private int duration;
 	private String name;
 	
@@ -20,6 +20,8 @@ class Wait implements Runnable {
 	
 	public void run() {
 		Delay.msDelay(duration);
-		Robot.getInstance().warn(new Event(TypeEvent.WAITEND, name));
+		if(!getInterrupted()) {
+			Robot.getInstance().warn(new Event(TypeEvent.WAITEND, name));
+		}
 	}
 }

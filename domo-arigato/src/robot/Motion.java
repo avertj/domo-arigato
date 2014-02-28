@@ -1,5 +1,6 @@
 package robot;
 
+import actions.RunnableRobot;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.robotics.navigation.DifferentialPilot;
 
@@ -9,6 +10,7 @@ public class Motion {
 	private float wheelDiameter;
 	private float trackWidth;
 	private DifferentialPilot pilot;
+	private RunnableRobot thread;
 	
 	Motion() {
 		wheelDiameter = 5.6f;
@@ -40,5 +42,13 @@ public class Motion {
 
 	public DifferentialPilot getPilot() {
 		return pilot;
+	}
+	
+	public void setRunnableRobot(RunnableRobot thread) {
+		this.thread = thread;
+	}
+	
+	public RunnableRobot getRunnableRobot() {
+		return thread;
 	}
 }
