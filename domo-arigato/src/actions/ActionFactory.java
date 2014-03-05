@@ -1,6 +1,7 @@
 package actions;
 
 import robot.Robot;
+import lejos.robotics.navigation.Pose;
 import music.Music;
 
 public class ActionFactory {
@@ -18,6 +19,10 @@ public class ActionFactory {
 	
 	public static void goForward(int duration, boolean createThread) {
 		new GoForward(duration, createThread);
+	}
+	
+	public static void straightMove(Pose pose, boolean createThread) {
+		new StraightMove(pose, createThread);
 	}
 	
 	public static void goBackward(int duration, boolean createThread) {
