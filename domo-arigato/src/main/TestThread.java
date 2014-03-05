@@ -1,6 +1,6 @@
 package main;
 
-import actions.ActionFabrique;
+import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
 
@@ -53,15 +53,15 @@ public class TestThread extends EventListener {
 	public void act() {
 		if(debut) {
 			debut = false;
-			ActionFabrique.wait(10000, "end", true);
+			ActionFactory.wait(10000, "end", true);
 		}
 		if(!clawsMoving) {
 			if(attente) {
-				ActionFabrique.wait(500, "claws", true);
+				ActionFactory.wait(500, "claws", true);
 			}
 			else {
 				clawsMoving = true;
-				ActionFabrique.useClaws(nextclawsOpenure, true);
+				ActionFactory.useClaws(nextclawsOpenure, true);
 			}
 		}
 		if(!robotMoving) {
@@ -69,13 +69,13 @@ public class TestThread extends EventListener {
 			switch(state)
 			{
 			case 0 :
-				ActionFabrique.goForward(500, true);
+				ActionFactory.goForward(500, true);
 				break;
 			case 1 :
-				ActionFabrique.goBackward(500, true);
+				ActionFactory.goBackward(500, true);
 				break;
 			case 2 :
-				ActionFabrique.rotate(90, true);
+				ActionFactory.rotate(90, true);
 			}
 		}
 		if(end) {

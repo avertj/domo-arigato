@@ -3,7 +3,7 @@ package actions;
 import robot.Robot;
 import music.Music;
 
-public class ActionFabrique {
+public class ActionFactory {
 	public static void playMusic(Music music, boolean createThread) {
 		PlayMusic.playMusic(music, createThread);
 	}

@@ -1,6 +1,6 @@
 package main;
 
-import actions.ActionFabrique;
+import actions.ActionFactory;
 import actions.Event;
 import actions.TypeEvent;
 import lejos.nxt.Button;
@@ -18,7 +18,7 @@ public class Main {
     	robot.changeEventListener(behavior);
     	
     	Button.ENTER.waitForPressAndRelease();
-    	ActionFabrique.useClaws(1.0f, false);
+    	ActionFactory.useClaws(1.0f, false);
     	robot.warn(new Event(TypeEvent.SHUTDOWN));
     }
 }
