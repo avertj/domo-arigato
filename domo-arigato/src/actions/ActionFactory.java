@@ -17,8 +17,16 @@ public class ActionFactory {
 		new Rotate(angle, createThread);
 	}
 	
+	public static void rotate(Pose pose, boolean createThread) {
+		new Rotate(pose, createThread);
+	}
+	
 	public static void goForward(int duration, boolean createThread) {
 		new GoForward(duration, createThread);
+	}
+	
+	public static void goForward(float distance, boolean createThread) {
+		new GoForward(distance, createThread);
 	}
 	
 	public static void straightMove(Pose pose, boolean createThread) {
@@ -27,6 +35,10 @@ public class ActionFactory {
 	
 	public static void goBackward(int duration, boolean createThread) {
 		new GoBackward(duration, createThread);
+	}
+	
+	public static void goBackward(float distance, boolean createThread) {
+		new GoBackward(distance, createThread);
 	}
 	
 	public static void wait(int duration, String name, boolean createThread) {
