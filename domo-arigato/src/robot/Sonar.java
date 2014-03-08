@@ -12,8 +12,8 @@ public class Sonar implements FeatureListener{
 	private final int TIMER_DETECTION = 5;
 	private UltrasonicSensor us;
 	private RangeFeatureDetector rfd;
+	
 	Sonar() {
-		
 	}
 	
 	void initSonar(SensorPort sonar) {

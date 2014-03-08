@@ -14,6 +14,7 @@ public class Robot {
 	private EventListener eventListener;
 	private Thread brain;
 	private OdometryPoseProvider opp;
+	private ColorEyes eyes;
 	
 	public static Robot getInstance() {
 		return INSTANCE;
@@ -23,6 +24,7 @@ public class Robot {
 		sonar = new Sonar();
 		claws = new Claws();
 		motion = new Motion();
+		eyes = new ColorEyes();
 	}
 	
 	public void initMotors(NXTRegulatedMotor leftWheel, NXTRegulatedMotor rightWheel, NXTRegulatedMotor claws, StartPosition position) {
@@ -49,8 +51,9 @@ public class Robot {
 		return opp;
 	}
 	
-	public void initSensors(SensorPort sonar) {
+	public void initSensors(SensorPort sonar, SensorPort colorEyes) {
 		this.sonar.initSonar(sonar);
+		this.eyes.initEyes(colorEyes);
 	}
 	
 	public Claws getClaws() {
@@ -63,6 +66,10 @@ public class Robot {
 	
 	public Motion getMotion() {
 		return motion;
+	}
+	
+	public ColorEyes getEyes() {
+		return eyes;
 	}
 	
 	/**
