@@ -1,6 +1,7 @@
 package robot;
 
 import actions.Event;
+import actions.TypeEvent;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
 import lejos.robotics.localization.OdometryPoseProvider;
@@ -95,6 +96,8 @@ public class Robot {
 	 * @return true if there is an eventListener, false otherwise.
 	 */
 	public boolean warn(Event event) {
+		if(event.getTypeEvent().equals(TypeEvent.SHUTDOWN))
+			eyes.closeEyes();
 		if(eventListener == null || brain == null)
 			return false;
 		brain.interrupt();

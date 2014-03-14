@@ -1,7 +1,7 @@
 package actions;
 
 public abstract class RunnableRobot implements Runnable{
-	private volatile boolean interrupted = false;
+	private boolean interrupted = false;
 	
 	public void interrupt() {
 		interrupted = true;
