@@ -15,7 +15,7 @@ public class EyesRun extends RunnableRobot {
 	@Override
 	public void run() {
 		while(!getInterrupted()) {
-			Delay.msDelay(10);
+			Delay.msDelay(50);
 			color = eyes.getColor();
 		}
 	}

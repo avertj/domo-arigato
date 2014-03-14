@@ -7,16 +7,14 @@ import lejos.nxt.SensorPort;
 import robot.Robot;
 import robot.StartPosition;
 
-public class CalibrageEcartementRoues {
+public class CalibTailleRoues {
     public static void main(String[] args) {
     	Robot robot = Robot.getInstance();
     	robot.initSensors(SensorPort.S1, SensorPort.S2);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.midle);
 
-    	float distance1 = 10.0f;
-    	float distance2 = 20.0f;
-    	ActionFactory.goForward(distance1, false);
+    	ActionFactory.rotate(90.0f, false);
 		Button.ENTER.waitForPressAndRelease();
-    	ActionFactory.goForward(distance2, false);
+    	ActionFactory.rotate(180.0f, false);
     }
 }
