@@ -16,7 +16,7 @@ public class TestColorSensor {
     		System.out.println("Red : "+robot.getEyes().getColor().getRed());
     		System.out.println("Green : "+robot.getEyes().getColor().getGreen());
     		System.out.println("Blue : "+robot.getEyes().getColor().getBlue());
-    		System.out.println("BGLight : "+robot.getEyes().getColor().getBackground());
+    		System.out.println(robot.getEyes().cs.getColorID());
     		Button.ENTER.waitForPressAndRelease();
     	}
     }

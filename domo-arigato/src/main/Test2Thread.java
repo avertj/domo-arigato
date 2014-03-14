@@ -1,5 +1,6 @@
 package main;
 
+import lejos.robotics.navigation.Pose;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
@@ -9,6 +10,10 @@ public class Test2Thread extends EventListener {
 	boolean robotMoving = false;
 	boolean debut = true;
 	boolean end = false;
+	Pose a = new Pose(30, 30, 225);
+	Pose b = new Pose(-30, 30, 315);
+	Pose c = new Pose(-30, -30, 45);
+	Pose d = new Pose(30, -30, 135);
 
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
@@ -16,17 +21,9 @@ public class Test2Thread extends EventListener {
 		case SHUTDOWN :
 			stop();
 			break;
-		case GOFORWARDEND :
-			state = 1;
+		case STRAIGHTMOVEEND :
+			state = (state+1);
 			robotMoving = false;
-			break;
-		case GOBACKWARDEND :
-			state = 0;
-			robotMoving = false;
-			break;
-
-		case ROTATEEND :
-			end = true;
 		default:
 			break;
 		}
@@ -34,21 +31,29 @@ public class Test2Thread extends EventListener {
 
 	public void act() {
 		if(debut) {
-			ActionFactory.rotate(360, true);
+			robotMoving = true;
+			ActionFactory.straightMove(a, true);
 		}
 		if(!robotMoving) {
-			robotMoving = true;
-			switch(state)
-			{
+			Pose p = a;
+			switch(state%4) {
 			case 0 :
-				ActionFactory.goForward(500, true);
+				p = a;
 				break;
 			case 1 :
-				ActionFactory.goBackward(500, true);
+				p = b;
+				break;
+			case 2 :
+				p = c;
+				break;
+			case 3 :
+				p = d;
 				break;
 			}
+			robotMoving = true;
+			ActionFactory.straightMove(p, true);
 		}
-		if(end) {
+		if(state == 10) {
 			stop();
 		}
 	}

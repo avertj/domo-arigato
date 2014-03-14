@@ -1,12 +1,11 @@
 package robot;
 
 import actions.RunnableRobot;
-import lejos.nxt.ColorSensor;
-import lejos.nxt.ColorSensor.Color;
 import lejos.nxt.SensorPort;
+import lejos.nxt.addon.ColorHTSensor;
 
 public class ColorEyes {
-	private ColorSensor cs;
+	public ColorHTSensor cs;
 	RunnableRobot thread;
 	
 	ColorEyes() {
@@ -14,13 +13,13 @@ public class ColorEyes {
 	}
 	
 	void initEyes(SensorPort eyes) {
-		cs = new ColorSensor(eyes);
+		cs = new ColorHTSensor(eyes);if(cs.initWhiteBalance() == 0)System.out.println("cool");else System.out.println("pas cool");
 		thread = new EyesRun(this);
 		Thread t = new Thread(thread);
-		t.start();
+		//t.start();
 	}
 	
-	public Color getColor() {
+	public lejos.robotics.Color getColor() {
 		return cs.getColor();
 	}
 	

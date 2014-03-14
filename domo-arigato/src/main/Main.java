@@ -15,7 +15,7 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S2);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.midle);
     	
-    	TestThread behavior = new TestThread();
+    	Test2Thread behavior = new Test2Thread();
     	robot.changeEventListener(behavior);
     	
     	Button.ENTER.waitForPressAndRelease();

@@ -23,9 +23,9 @@ public class Sonar implements FeatureListener{
 	}
 	
 	public void featureDetected(Feature feature, FeatureDetector detector) {
-		System.out.println("Nombre : " + feature.getRangeReadings().size());
+		/*System.out.println("Nombre : " + feature.getRangeReadings().size());
 		for(int i = 0; i < feature.getRangeReadings().size(); i++) {
 			System.out.println("distance "+i+" :" + feature.getRangeReadings().getRange(i));
-		}
+		}*/
 	}
 }

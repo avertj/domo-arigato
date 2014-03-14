@@ -14,7 +14,7 @@ public class Motion {
 	
 	Motion() {
 		wheelDiameter = 5.6f;
-		trackWidth = 10.7f;
+		trackWidth = 11.5f;
 	}
 
 	/**
