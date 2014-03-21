@@ -1,13 +1,17 @@
 package actions;
 
+import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.navigation.Pose;
+import lejos.util.Delay;
 import robot.Robot;
 
 class StraightMove extends RunnableRobot {
 	private Pose pose;
+	private OdometryPoseProvider odo;
 	
 	StraightMove(Pose pose, boolean createThread) {
 		this.pose = pose;
+		odo = Robot.getInstance().getOdometryPoseProvider();
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null)
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
@@ -20,7 +24,7 @@ class StraightMove extends RunnableRobot {
 	}
 	
 	public void run() {
-		Robot.getInstance().getMotion().getPilot().rotate(Robot.getInstance().getOdometryPoseProvider().getPose().angleTo(pose.getLocation()), true);
+		Robot.getInstance().getMotion().getPilot().rotate(odo.getPose().relativeBearing(pose.getLocation()), true);
 		while(Robot.getInstance().getMotion().getPilot().isMoving()) {
 			if(!getInterrupted()) {
 				Thread.yield();
@@ -28,6 +32,7 @@ class StraightMove extends RunnableRobot {
 			else
 				break;
 		}
+		Delay.msDelay(200); //TODO remove.
 		if(!getInterrupted()) {
 			Robot.getInstance().getMotion().getPilot().travel(Robot.getInstance().getOdometryPoseProvider().getPose().distanceTo(pose.getLocation()), true);
 			while(Robot.getInstance().getMotion().getPilot().isMoving()) {
@@ -37,6 +42,7 @@ class StraightMove extends RunnableRobot {
 				else
 					break;
 			}
+			Delay.msDelay(200); //TODO remove.
 			if(!getInterrupted()) {
 				Robot.getInstance().getMotion().getPilot().rotate(pose.getHeading() - Robot.getInstance().getOdometryPoseProvider().getPose().getHeading(), true);
 				while(Robot.getInstance().getMotion().getPilot().isMoving()) {
@@ -46,16 +52,17 @@ class StraightMove extends RunnableRobot {
 					else
 						break;
 				}
+				Delay.msDelay(200); //TODO remove.
 				if(!getInterrupted()) {
 					Robot.getInstance().warn(new Event(TypeEvent.STRAIGHTMOVEEND));
 				}
 				else
-					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARDEND.toString()));
+					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVEEND.toString()));
 			}
 			else
-				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARDEND.toString()));
+				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVEEND.toString()));
 		}
 		else
-			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARDEND.toString()));
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVEEND.toString()));
 	}
 }

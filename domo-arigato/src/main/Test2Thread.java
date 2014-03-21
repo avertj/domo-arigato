@@ -4,6 +4,7 @@ import lejos.robotics.navigation.Pose;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
+import robot.Robot;
 
 public class Test2Thread extends EventListener {
 	int state = 0;
@@ -31,30 +32,37 @@ public class Test2Thread extends EventListener {
 
 	public void act() {
 		if(debut) {
+			debut = false;
+	    	Pose p = new Pose(0, 0, 0);
+	    	Robot.getInstance().getOdometryPoseProvider().setPose(p);
 			robotMoving = true;
 			ActionFactory.straightMove(a, true);
 		}
-		if(!robotMoving) {
-			Pose p = a;
+		else if(!robotMoving) {
+			Pose p = null;String s=null;
 			switch(state%4) {
 			case 0 :
-				p = a;
+				p = a;s = "a";
 				break;
 			case 1 :
-				p = b;
+				p = b;s = "b";
 				break;
 			case 2 :
-				p = c;
+				p = c;s = "c";
 				break;
 			case 3 :
-				p = d;
+				p = d;s = "d";
 				break;
 			}
 			robotMoving = true;
+			System.out.println("Next Pose : "+s);
+			System.out.println("X : "+Robot.getInstance().getOdometryPoseProvider().getPose().getX());
+			System.out.println("Y : "+Robot.getInstance().getOdometryPoseProvider().getPose().getY());
+			System.out.println("X : "+Robot.getInstance().getOdometryPoseProvider().getPose().getHeading());
 			ActionFactory.straightMove(p, true);
 		}
 		if(state == 10) {
-			stop();
+			end = true;
 		}
 	}
 }

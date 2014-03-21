@@ -9,7 +9,7 @@ import robot.StartPosition;
 public class TestColorSensor {
     public static void main(String[] args) {
     	Robot robot = Robot.getInstance();
-    	robot.initSensors(SensorPort.S1, SensorPort.S2);
+    	robot.initSensors(SensorPort.S1, SensorPort.S4);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.midle);
     	
     	while(true) {

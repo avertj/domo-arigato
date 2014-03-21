@@ -16,7 +16,7 @@ public class ColorEyes {
 		cs = new ColorHTSensor(eyes);if(cs.initWhiteBalance() == 0)System.out.println("cool");else System.out.println("pas cool");
 		thread = new EyesRun(this);
 		Thread t = new Thread(thread);
-		//t.start();
+		t.start();
 	}
 	
 	public lejos.robotics.Color getColor() {

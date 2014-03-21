@@ -38,7 +38,7 @@ class Rotate extends RunnableRobot {
 	
 	public void run() {
 		if(pointCall)
-			Robot.getInstance().getMotion().getPilot().rotate(Robot.getInstance().getOdometryPoseProvider().getPose().angleTo(pose.getLocation()), true);
+			Robot.getInstance().getMotion().getPilot().rotate(Robot.getInstance().getOdometryPoseProvider().getPose().relativeBearing(pose.getLocation()), true);
 		else
 			Robot.getInstance().getMotion().getPilot().rotate(angle, true);
 		while(Robot.getInstance().getMotion().getPilot().isMoving()) {
