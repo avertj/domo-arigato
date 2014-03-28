@@ -1,8 +1,11 @@
 package robot;
 
 import actions.Event;
+import actions.TypeEvent;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
+import lejos.robotics.localization.OdometryPoseProvider;
+import lejos.robotics.navigation.Pose;
 
 public class Robot {
 	private static Robot INSTANCE = new Robot();
@@ -11,6 +14,8 @@ public class Robot {
 	private Motion motion;
 	private EventListener eventListener;
 	private Thread brain;
+	private OdometryPoseProvider opp;
+	private ColorEyes eyes;
 	
 	public static Robot getInstance() {
 		return INSTANCE;
@@ -20,15 +25,36 @@ public class Robot {
 		sonar = new Sonar();
 		claws = new Claws();
 		motion = new Motion();
+		eyes = new ColorEyes();
 	}
 	
-	public void initMotors(NXTRegulatedMotor leftWheel, NXTRegulatedMotor rightWheel, NXTRegulatedMotor claws) {
+	public void initMotors(NXTRegulatedMotor leftWheel, NXTRegulatedMotor rightWheel, NXTRegulatedMotor claws, StartPosition position) {
 		this.claws.setClawsMotor(claws);
 		this.motion.setWheelMotors(leftWheel, rightWheel);
+		opp = new OdometryPoseProvider(motion.getPilot());
+		Pose pose;
+		switch(position)
+		{
+		case left :
+			pose = new Pose(-75.0f, -125.0f, 0.0f);
+			break;
+		case midle :
+			pose = new Pose(0.0f, -125.0f, 0.0f);
+			break;
+		default :
+			pose = new Pose(75.0f, -125.0f, 0.0f);
+			break;
+		}
+		opp.setPose(pose);
 	}
 	
-	public void initSensors(SensorPort sonar) {
+	public OdometryPoseProvider getOdometryPoseProvider() {
+		return opp;
+	}
+	
+	public void initSensors(SensorPort sonar, SensorPort colorEyes) {
 		this.sonar.initSonar(sonar);
+		this.eyes.initEyes(colorEyes);
 	}
 	
 	public Claws getClaws() {
@@ -41,6 +67,10 @@ public class Robot {
 	
 	public Motion getMotion() {
 		return motion;
+	}
+	
+	public ColorEyes getEyes() {
+		return eyes;
 	}
 	
 	/**
@@ -66,6 +96,8 @@ public class Robot {
 	 * @return true if there is an eventListener, false otherwise.
 	 */
 	public boolean warn(Event event) {
+		if(event.getTypeEvent().equals(TypeEvent.SHUTDOWN))
+			eyes.closeEyes();
 		if(eventListener == null || brain == null)
 			return false;
 		brain.interrupt();
