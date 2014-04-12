@@ -45,7 +45,7 @@ public class TrouverPalet extends EventListener {
 			}
 			else if(state == 0) {
 				float res = Robot.getInstance().getSonar().getMinDist();
-				if(res>20 && res<60){
+				if(res>20 && res<80){
 					System.out.println("deja la");
 					stop();
 				}
@@ -53,7 +53,7 @@ public class TrouverPalet extends EventListener {
 					Robot.getInstance().getMotion().getPilot().setRotateSpeed(30);
 					ActionFactory.rotate(180, true);
 					state++;
-					ActionFactory.wait(20, "", true);
+					ActionFactory.wait(5, "", true);
 				}
 			}
 			else if(state == 1) {
@@ -64,7 +64,7 @@ public class TrouverPalet extends EventListener {
 					state=2;
 				}
 				else
-					ActionFactory.wait(20, "", true);
+					ActionFactory.wait(5, "", true);
 			}
 			else if(state == 3){
 				ActionFactory.stopMotion(true);
