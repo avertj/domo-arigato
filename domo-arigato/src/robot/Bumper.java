@@ -20,7 +20,9 @@ public class Bumper implements FeatureListener {
 		tfd.setDelay(5);
 	}
 
-	@Override
+	/**
+	 * Send an event to the robot.
+	 */
 	public void featureDetected(Feature feature, FeatureDetector detector) {
 		Robot.getInstance().warn(new Event(TypeEvent.BUMP));
 	}

@@ -2,7 +2,6 @@ package actions;
 
 import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.navigation.Pose;
-import lejos.util.Delay;
 import robot.Robot;
 
 class StraightMove extends RunnableRobot {
