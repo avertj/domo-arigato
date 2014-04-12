@@ -1,10 +1,11 @@
 package field;
 
 import lejos.geom.Point;
+import lejos.robotics.navigation.Waypoint;
 
 public class FieldStatus {
 	private boolean[] present;
-	private Point robotPosition;
+	private Waypoint robotPosition;
 	private Point enemyRobotPosition;
 	
 	public FieldStatus() {
@@ -22,11 +23,11 @@ public class FieldStatus {
 		return this.present[p.getNum()];
 	}
 	
-	public Point getRobotPosition() {
+	public Waypoint getRobotPosition() {
 		return robotPosition;
 	}
 	
-	public void setRobotPosition(Point robotPosition) {
+	public void setRobotPosition(Waypoint robotPosition) {
 		this.robotPosition = robotPosition;
 	}
 	
