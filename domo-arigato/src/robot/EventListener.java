@@ -3,10 +3,8 @@ package robot;
 import actions.Event;
 
 public abstract class EventListener implements Runnable {
-	protected int AUTO_AWAKE_TIME = 1000;
 	private static final Object lock = new Object();
 	private boolean end = false;
-	private boolean autoWake;
 	
 	/**
 	 * This method is call after the end of an action or can be call at other moments.
@@ -22,22 +20,16 @@ public abstract class EventListener implements Runnable {
 	protected abstract void act();
 	
 	public void run() {
+		act();
 		while(!end) {
-			act();
-			autoWake = true;
-	        try {
-	            Thread.interrupted();
-	            Thread.sleep(AUTO_AWAKE_TIME);
-	        }
-	        catch (InterruptedException e) {
-	        	autoWake = false;
-	        }
+			Thread.yield();
 		}
 	}
 	
 	void synchronizedWarn(Event event) {
 		synchronized(lock) {
 			warn(event);
+			act();
 		}
 	}
 	
@@ -47,9 +39,5 @@ public abstract class EventListener implements Runnable {
 	public void stop() {
 		end = true;
 		Robot.getInstance().changeEventListener(null);
-	}
-	
-	public boolean getAutoWake() {
-		return autoWake;
 	}
 }

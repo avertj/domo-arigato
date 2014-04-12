@@ -4,6 +4,9 @@ import actions.RunnableRobot;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.robotics.navigation.DifferentialPilot;
 
+/**
+ *The legs of the robot.
+ */
 public class Motion {
 	private NXTRegulatedMotor leftWheel;
 	private NXTRegulatedMotor rightWheel;

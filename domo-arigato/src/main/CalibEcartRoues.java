@@ -11,26 +11,24 @@ import robot.StartPosition;
 public class CalibEcartRoues {
     public static void main(String[] args) {
     	Robot robot = Robot.getInstance();
-    	robot.initSensors(SensorPort.S1, SensorPort.S4);
-    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.midle);
-
-    	Test2Thread behavior = new Test2Thread();
-    	robot.changeEventListener(behavior);
+    	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
+    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
+    	float f = 45;
     	Pose p = new Pose(0, 0, 0);
     	Robot.getInstance().getOdometryPoseProvider().setPose(p);
-    	ActionFactory.rotate(45.0f, false);
+    	ActionFactory.rotate(f, false);
 		Button.ENTER.waitForPressAndRelease();
-    	ActionFactory.rotate(45.0f, false);
+    	ActionFactory.rotate(f, false);
 		Button.ENTER.waitForPressAndRelease();
-    	ActionFactory.rotate(45.0f, false);
+    	ActionFactory.rotate(f, false);
 		Button.ENTER.waitForPressAndRelease();
-    	ActionFactory.rotate(45.0f, false);
+    	ActionFactory.rotate(f, false);
 		Button.ENTER.waitForPressAndRelease();
-    	ActionFactory.rotate(45.0f, false);
-    	ActionFactory.rotate(45.0f, false);
-    	ActionFactory.rotate(45.0f, false);
-    	ActionFactory.rotate(45.0f, false);
+    	ActionFactory.rotate(f, false);
+    	ActionFactory.rotate(f, false);
+    	ActionFactory.rotate(f, false);
+    	ActionFactory.rotate(f, false);
     	System.out.println("X : " + robot.getOdometryPoseProvider().getPose().getX());
     	System.out.println("Y : " + robot.getOdometryPoseProvider().getPose().getY());
     	System.out.println("Heading : " + robot.getOdometryPoseProvider().getPose().getHeading());

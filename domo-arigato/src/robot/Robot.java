@@ -7,6 +7,10 @@ import lejos.nxt.SensorPort;
 import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.navigation.Pose;
 
+/**
+ * This class represent the Robot and this is a singleton accessible from everywhere by getInstance()
+ * you must initiate initMotors, initSensor and changeEventListener to make it work.
+ */
 public class Robot {
 	private static Robot INSTANCE = new Robot();
 	private Sonar sonar;
@@ -16,6 +20,7 @@ public class Robot {
 	private Thread brain;
 	private OdometryPoseProvider opp;
 	private ColorEyes eyes;
+	private Bumper bumper;
 	
 	public static Robot getInstance() {
 		return INSTANCE;
@@ -26,8 +31,17 @@ public class Robot {
 		claws = new Claws();
 		motion = new Motion();
 		eyes = new ColorEyes();
+		bumper = new Bumper();
+		
 	}
 	
+	/**
+	 * This call initiate the Motors of the robot.
+	 * @param leftWheel leftWheel port.
+	 * @param rightWheel rightWheel port.
+	 * @param claws claws port.
+	 * @param position left, middle or right.
+	 */
 	public void initMotors(NXTRegulatedMotor leftWheel, NXTRegulatedMotor rightWheel, NXTRegulatedMotor claws, StartPosition position) {
 		this.claws.setClawsMotor(claws);
 		this.motion.setWheelMotors(leftWheel, rightWheel);
@@ -36,13 +50,13 @@ public class Robot {
 		switch(position)
 		{
 		case left :
-			pose = new Pose(-75.0f, -125.0f, 0.0f);
+			pose = new Pose(-50.0f, -120.0f, 90.0f);
 			break;
-		case midle :
-			pose = new Pose(0.0f, -125.0f, 0.0f);
+		case middle :
+			pose = new Pose(0.0f, -120.0f, 90.0f);
 			break;
 		default :
-			pose = new Pose(75.0f, -125.0f, 0.0f);
+			pose = new Pose(50.0f, -120.0f, 90.0f);
 			break;
 		}
 		opp.setPose(pose);
@@ -52,9 +66,16 @@ public class Robot {
 		return opp;
 	}
 	
-	public void initSensors(SensorPort sonar, SensorPort colorEyes) {
+	/**
+	 * This call initiate the sensors of the robot.
+	 * @param sonar sonar port.
+	 * @param colorEyes colorEyes port.
+	 * @param bumper bumper port.
+	 */
+	public void initSensors(SensorPort sonar, SensorPort colorEyes, SensorPort bumper) {
 		this.sonar.initSonar(sonar);
-		this.eyes.initEyes(colorEyes);
+		//this.eyes.initEyes(colorEyes);
+		this.bumper.initBumper(bumper);
 	}
 	
 	public Claws getClaws() {
@@ -71,6 +92,10 @@ public class Robot {
 	
 	public ColorEyes getEyes() {
 		return eyes;
+	}
+	
+	public Bumper getBumper() {
+		return bumper;
 	}
 	
 	/**

@@ -32,7 +32,6 @@ class StraightMove extends RunnableRobot {
 			else
 				break;
 		}
-		Delay.msDelay(200); //TODO remove.
 		if(!getInterrupted()) {
 			Robot.getInstance().getMotion().getPilot().travel(Robot.getInstance().getOdometryPoseProvider().getPose().distanceTo(pose.getLocation()), true);
 			while(Robot.getInstance().getMotion().getPilot().isMoving()) {
@@ -42,7 +41,6 @@ class StraightMove extends RunnableRobot {
 				else
 					break;
 			}
-			Delay.msDelay(200); //TODO remove.
 			if(!getInterrupted()) {
 				Robot.getInstance().getMotion().getPilot().rotate(pose.getHeading() - Robot.getInstance().getOdometryPoseProvider().getPose().getHeading(), true);
 				while(Robot.getInstance().getMotion().getPilot().isMoving()) {
@@ -52,7 +50,6 @@ class StraightMove extends RunnableRobot {
 					else
 						break;
 				}
-				Delay.msDelay(200); //TODO remove.
 				if(!getInterrupted()) {
 					Robot.getInstance().warn(new Event(TypeEvent.STRAIGHTMOVEEND));
 				}

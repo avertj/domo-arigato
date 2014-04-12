@@ -4,8 +4,11 @@ import actions.RunnableRobot;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.util.Delay;
 
+/**
+ * The claws of the robot (supposed to be opened at the beginning).
+ */
 public class Claws {
-	private final float TOTAL_DELAY = 160;
+	private final float TOTAL_DELAY = 210;
 	private float state;
 	private NXTRegulatedMotor clawsMotor;
 	private RunnableRobot thread;
