@@ -9,6 +9,7 @@ public class EyesRun extends RunnableRobot {
 	ColorEyes eyes;
 	lejos.robotics.Color color;
 	int lightValue;
+	TypeEvent prev;
 	
 	public EyesRun(ColorEyes eyes) {
 		this.eyes = eyes;
@@ -17,13 +18,23 @@ public class EyesRun extends RunnableRobot {
 	@Override
 	public void run() {
 		while(!getInterrupted()) {
-			Delay.msDelay(50);
+			Delay.msDelay(5);
 			//color = eyes.getColor();
 			lightValue = eyes.getLightValue();
+			TypeEvent curr;
+			// < 50 = noir
+			if(lightValue < 50) {
+				curr = TypeEvent.BLACKDETECTED;
+			} else {
+				curr = TypeEvent.WHITEDETECTED;
+			}
 			
-			System.out.println("light value : " + lightValue);
-			//Robot.getInstance().warn(new Event(TypeEvent.));
+			if(prev == null || prev != curr) {
+				Robot.getInstance().warn(new Event(curr));
+				prev = curr;
+			}
 		}
+			//System.out.println("light value : " + lightValue);
+			//Robot.getInstance().warn(new Event(TypeEvent.));
 	}
-
 }
