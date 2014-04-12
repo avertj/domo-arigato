@@ -5,6 +5,7 @@ import actions.Event;
 public abstract class EventListener implements Runnable {
 	private static final Object lock = new Object();
 	private boolean end = false;
+	private volatile boolean ignore = false;
 	
 	/**
 	 * This method is call after the end of an action or can be call at other moments.
@@ -19,6 +20,10 @@ public abstract class EventListener implements Runnable {
 	 */
 	protected abstract void act();
 	
+	public void ignore() {
+		ignore = true;
+	}
+	
 	public void run() {
 		act();
 		while(!end) {
@@ -29,7 +34,9 @@ public abstract class EventListener implements Runnable {
 	void synchronizedWarn(Event event) {
 		synchronized(lock) {
 			warn(event);
-			act();
+			if(!ignore)
+				act();
+			ignore = false;
 		}
 	}
 	

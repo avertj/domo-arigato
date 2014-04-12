@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import utils.Tuple;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
-import lejos.robotics.RangeReadings;
 import lejos.robotics.navigation.Pose;
 import lejos.robotics.objectdetection.Feature;
 import lejos.robotics.objectdetection.FeatureDetector;
@@ -53,9 +52,14 @@ public class Sonar implements FeatureListener{
 	 * the boolean is true only if the object detected is moving(it's the ennemy).
 	 */
 	public Tuple<Float, Boolean> getMinDistance() {
-		if(lectures.size() < SIZE_LECTURE)
-			return new Tuple<Float, Boolean>(0.0f, false);
-		Tuple<Float, Boolean> res;
+		if(lectures.size() < SIZE_LECTURE) {
+			if(lectures.size() == 0 || lectures.get(lectures.size()-1).size() == 0)
+				return new Tuple<Float, Boolean>(0.0f, false);
+			float min = lectures.get(lectures.size() - 1).get(0);
+			for(int i = 1; i < lectures.get(lectures.size() - 1).size(); i++)
+				min = Math.min(min, lectures.get(lectures.size()-1).get(i));
+			return new Tuple<Float, Boolean>(min, false);
+		}
 		float min1;
 		float min2;
 		float distance;
