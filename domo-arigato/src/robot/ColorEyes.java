@@ -35,6 +35,11 @@ public class ColorEyes {
 		t.start();*/
 		
 		ls = new LightSensor(eyes);
+		
+
+		thread = new EyesRun(this);
+		Thread t = new Thread(thread);
+		t.start();
 		/*System.out.println(ls.getLightValue());
 		System.out.println(eyes.readRawValue());
 		Delay.msDelay(1000);
@@ -46,11 +51,11 @@ public class ColorEyes {
 
 	}
 	
-	public int getLightValue() {
+	synchronized public int getLightValue() {
 		return ls.getLightValue();
 	}
 	
-	public lejos.robotics.Color getColor() {
+	synchronized public lejos.robotics.Color getColor() {
 		return cs.getColor();
 	}
 	

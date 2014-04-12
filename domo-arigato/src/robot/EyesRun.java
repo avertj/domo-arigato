@@ -18,7 +18,7 @@ public class EyesRun extends RunnableRobot {
 	public void run() {
 		while(!getInterrupted()) {
 			Delay.msDelay(50);
-			color = eyes.getColor();
+			//color = eyes.getColor();
 			lightValue = eyes.getLightValue();
 			
 			System.out.println("light vzlue : " + lightValue);
