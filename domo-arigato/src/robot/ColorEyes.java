@@ -1,5 +1,7 @@
 package robot;
 
+import java.util.Date;
+
 import actions.RunnableRobot;
 import lejos.nxt.I2CPort;
 import lejos.nxt.I2CSensor;
@@ -12,6 +14,8 @@ public class ColorEyes {
 	public ColorHTSensor cs;
 	RunnableRobot thread;
 	I2CSensor sensor;
+	
+	LightSensor ls;
 	
 	ColorEyes() {
 		thread = null;
@@ -29,16 +33,21 @@ public class ColorEyes {
 		thread = new EyesRun(this);
 		Thread t = new Thread(thread);
 		t.start();*/
-		LightSensor ls = new LightSensor(eyes);
-		System.out.println(ls.getLightValue());
+		
+		ls = new LightSensor(eyes);
+		/*System.out.println(ls.getLightValue());
 		System.out.println(eyes.readRawValue());
 		Delay.msDelay(1000);
 		System.out.println(ls.getLightValue());
 		System.out.println(eyes.readRawValue());
 		Delay.msDelay(1000);
 		System.out.println(ls.getLightValue());
-		System.out.println(eyes.readRawValue());
+		System.out.println(eyes.readRawValue());*/
 
+	}
+	
+	public int getLightValue() {
+		return ls.getLightValue();
 	}
 	
 	public lejos.robotics.Color getColor() {

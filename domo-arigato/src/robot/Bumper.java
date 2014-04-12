@@ -27,4 +27,5 @@ public class Bumper implements FeatureListener {
 		Robot.getInstance().warn(new Event(TypeEvent.BUMP));
 	}
 
+	
 }
