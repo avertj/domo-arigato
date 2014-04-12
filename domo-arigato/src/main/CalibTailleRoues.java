@@ -11,8 +11,8 @@ import robot.StartPosition;
 public class CalibTailleRoues {
     public static void main(String[] args) {
     	Robot robot = Robot.getInstance();
-    	robot.initSensors(SensorPort.S1, SensorPort.S4);
-    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.midle);
+    	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
+    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
 
     	float distance1 = 60.0f;
     	float distance2 = 120.0f;

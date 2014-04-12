@@ -12,10 +12,11 @@ import robot.StartPosition;
 public class Main {
     public static void main(String[] args) {
     	Robot robot = Robot.getInstance();
-    	robot.initSensors(SensorPort.S1, SensorPort.S4);
-    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.midle);
+    	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
+    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
     	Test2Thread behavior = new Test2Thread();
+    	//TestDodo behavior = new TestDodo();
     	robot.changeEventListener(behavior);
     	
     	Button.ENTER.waitForPressAndRelease();

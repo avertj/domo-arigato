@@ -29,6 +29,10 @@ public class ActionFactory {
 		new GoForward(distance, createThread);
 	}
 	
+	public static void arcMove(float angle, float radius, boolean createThread) {
+		new ArcMove(angle, radius, createThread);
+	}
+	
 	public static void straightMove(Pose pose, boolean createThread) {
 		new StraightMove(pose, createThread);
 	}
@@ -45,9 +49,8 @@ public class ActionFactory {
 		new Wait(duration, createThread, name);
 	}
 	
-	public static void stopMotion() {
-		Robot.getInstance().getMotion().getPilot().stop();
-		Robot.getInstance().getMotion().getRunnableRobot().interrupt();
+	public static void stopMotion(boolean createThread) {
+		new StopMotion(createThread);
 	}
 	
 	public static void stopClaws() {

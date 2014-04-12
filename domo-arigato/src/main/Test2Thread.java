@@ -8,61 +8,93 @@ import robot.Robot;
 
 public class Test2Thread extends EventListener {
 	int state = 0;
-	boolean robotMoving = false;
 	boolean debut = true;
-	boolean end = false;
-	Pose a = new Pose(30, 30, 225);
-	Pose b = new Pose(-30, 30, 315);
-	Pose c = new Pose(-30, -30, 45);
-	Pose d = new Pose(30, -30, 135);
+	boolean ignore = false;
 
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
+		case BUMP :
+			if(state == 0)
+				state = 1;
+			else {
+				ignore = true;
+			}
+			System.out.println("Bump!");
+			break;
 		case SHUTDOWN :
 			stop();
 			break;
+		case USECLAWSEND :
+			System.out.println("State : "+state);
+			state++;
+			break;
+		case ROTATEEND :
+			System.out.println("State : "+state);
+			state++;
+			break;
+		case GOFORWARDEND :
+			System.out.println("State : "+state);
+			state++;
+			break;
+		case GOBACKWARDEND :
+			System.out.println("State : "+state);
+			state++;
+			break;
 		case STRAIGHTMOVEEND :
-			state = (state+1);
-			robotMoving = false;
+			System.out.println("State : "+state);
+			state++;
+			break;
+		case ARCEND :
+			System.out.println("State : "+state);
+			state++;
+			break;
+		case INTERRUPTED :
+			ignore = true;
+			System.out.println("Interompu : "+event.getName());
+			break;
 		default:
 			break;
 		}
 	}
 
 	public void act() {
-		if(debut) {
-			debut = false;
-	    	Pose p = new Pose(0, 0, 0);
-	    	Robot.getInstance().getOdometryPoseProvider().setPose(p);
-			robotMoving = true;
-			ActionFactory.straightMove(a, true);
+		if(ignore) {
+			ignore = false;
 		}
-		else if(!robotMoving) {
-			Pose p = null;String s=null;
-			switch(state%4) {
-			case 0 :
-				p = a;s = "a";
-				break;
-			case 1 :
-				p = b;s = "b";
-				break;
-			case 2 :
-				p = c;s = "c";
-				break;
-			case 3 :
-				p = d;s = "d";
-				break;
+		else {
+			if(debut) {
+			Robot.getInstance().getMotion().getPilot().setRotateSpeed(100);
+				debut = false;
+				ActionFactory.goForward(10000, true);
 			}
-			robotMoving = true;
-			System.out.println("Next Pose : "+s);
-			System.out.println("X : "+Robot.getInstance().getOdometryPoseProvider().getPose().getX());
-			System.out.println("Y : "+Robot.getInstance().getOdometryPoseProvider().getPose().getY());
-			System.out.println("X : "+Robot.getInstance().getOdometryPoseProvider().getPose().getHeading());
-			ActionFactory.straightMove(p, true);
-		}
-		if(state == 10) {
-			end = true;
+			else {
+				switch(state) {
+				case 1 :
+					ActionFactory.useClaws(0.0f, true);
+					break;
+				case 2 :
+					ActionFactory.arcMove(-45, -20, true);
+					break;
+				case 3 :
+					ActionFactory.arcMove(45, 20, true);
+					break;
+				case 4 :
+					ActionFactory.straightMove(new Pose(20, 120, 90), true);
+					break;
+				case 5 :
+					ActionFactory.useClaws(1.0f, true);
+					break;
+				case 6 :
+					ActionFactory.goBackward(10.0f, true);
+					break;
+				case 7 :
+					ActionFactory.straightMove(new Pose(0, -120, 90), true);
+					break;
+				case 8 :
+					stop();
+				}
+			}
 		}
 	}
 }
