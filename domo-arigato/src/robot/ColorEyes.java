@@ -33,9 +33,9 @@ public class ColorEyes {
 		thread = new EyesRun(this);
 		Thread t = new Thread(thread);
 		t.start();*/
-		
+		eyes.activate();
 		ls = new LightSensor(eyes);
-		
+		ls.setFloodlight(true);
 
 		thread = new EyesRun(this);
 		Thread t = new Thread(thread);

@@ -21,7 +21,7 @@ public class EyesRun extends RunnableRobot {
 			//color = eyes.getColor();
 			lightValue = eyes.getLightValue();
 			
-			System.out.println("light vzlue : " + lightValue);
+			System.out.println("light value : " + lightValue);
 			//Robot.getInstance().warn(new Event(TypeEvent.));
 		}
 	}
