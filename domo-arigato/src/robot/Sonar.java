@@ -20,6 +20,7 @@ public class Sonar implements FeatureListener{
 	private ArrayList<Pose> poses;
 	private static final Object lock = new Object();
 	private static final int SIZE_LECTURE = 5;
+	private long time = 0;
 	
 	Sonar() {
 		lectures = new ArrayList<ArrayList<Float>>();
@@ -43,7 +44,20 @@ public class Sonar implements FeatureListener{
 				lectures.remove(0);
 				poses.remove(0);
 			}
+			time = System.currentTimeMillis();
 		}
+	}
+	
+	public float getMinDist() {
+		if(System.currentTimeMillis()-time > 2*TIMER_DETECTION) {
+			return 0.0f;
+		}
+		if(lectures.size() == 0 || lectures.get(lectures.size()-1).size() == 0)
+			return 0.0f;
+		float min = lectures.get(lectures.size() - 1).get(0);
+		for(int i = 1; i < lectures.get(lectures.size() - 1).size(); i++)
+			min = Math.min(min, lectures.get(lectures.size()-1).get(i));
+		return min;
 	}
 	
 	/**
