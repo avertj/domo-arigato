@@ -9,6 +9,7 @@ import lejos.nxt.SensorPort;
 import robot.Robot;
 import robot.StartPosition;
 import tests.TestChildBehavior;
+import tests.TestScore;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,12 +17,13 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
+    	TestScore behavior = new TestScore();
     	//TestChildBehavior behavior = new TestChildBehavior();
     	//Alignement behavior = new Alignement();
     	//Test2Thread behavior = new Test2Thread();
     	//TestDodo behavior = new TestDodo();
     	//TrouverPalet behavior = new TrouverPalet();
-    	PousserPalet behavior=new PousserPalet();
+    	//PousserPalet behavior=new PousserPalet();
     	robot.changeEventListener(behavior);
     	
     	Button.ENTER.waitForPressAndRelease();
