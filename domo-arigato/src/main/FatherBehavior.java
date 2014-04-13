@@ -13,55 +13,34 @@ public class FatherBehavior extends EventListener {
 	
 	public Point getNextPuck(int y) {
 		Point posR = Robot.getInstance().getOdometryPoseProvider().getPose().getLocation();
-		Field field = Field.getInstance();
-		EnumPuck W, M, E;
-		
-		if(y==0)
-		{
-			W = EnumPuck.NW;
-			M = EnumPuck.N;
-			E = EnumPuck.NE;
-		}
-		else if(y==1)
-		{
-			W = EnumPuck.W;
-			M = EnumPuck.M;
-			E = EnumPuck.E;
-		}
-		else
-		{
-			W = EnumPuck.SW;
-			M = EnumPuck.S;
-			E = EnumPuck.SE;
-		}
-		
+		Field field = Field.getInstance();		
 		
 		if(posR.x<0)
 		{
-			if(field.isPresent(W))
+			if(field.isPresent(EnumPuck.values()[y*3]))
 			{
 				return new Point(-50, y*60-60);
 			}
-			else if(field.isPresent(M))
+			else if(field.isPresent(EnumPuck.values()[y*3+1]))
 			{
 				return new Point(0, y*60-60);
 			}
-			else if(field.isPresent(E))
+			else if(field.isPresent(EnumPuck.values()[y*3+2]))
 			{
 				return new Point(50, y*60-60);
 			}
 		}
 		else
 		{
-			if(field.isPresent(E))
+			if(field.isPresent(EnumPuck.values()[y*3]))
 			{
 				return new Point(50, y*60-60);
 			}
-			else if(field.isPresent(M))
+			else if(field.isPresent(EnumPuck.values()[y*3+1]))
 			{
 				return new Point(0, y*60-60);
 			}
-			else if(field.isPresent(W))
+			else if(field.isPresent(EnumPuck.values()[y*3+2]))
 			{
 				return new Point(-50, y*60-60);
 			}
