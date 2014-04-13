@@ -18,7 +18,7 @@ public class Test3Thread extends EventListener {
 		case SHUTDOWN :
 			stop();
 			break;
-		case ROTATEEND :
+		case ROTATE_END :
 			state = 1 - state;
 			robotMoving = false;
 		default:

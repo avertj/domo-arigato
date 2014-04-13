@@ -8,30 +8,43 @@ import robot.Robot;
 import utils.Tuple;
 
 public class TestDodo extends EventListener {
-	int state = 0;
-	boolean end = false;
+	boolean debut = true;
+	boolean black = false;
+	Pose pose;
 
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
-		case SHUTDOWN :
-			stop();
+		case WHITE_DETECTED :
+			System.out.println("White");
 			break;
-		case WAITEND :
-			break;
-		case INTERRUPTED :
-			System.out.println("interrupted");
+		case BLACK_DETECTED :
+			System.out.println("Black");
+			black = true;
 			break;
 		default:
+			ignore();
 			break;
 		}
 	}
 
 	public void act() {
+		if(debut) {
+			debut = false;
+			ActionFactory.goForward(10000, true);
+		}
+		if(black) {
+			pose = Robot.getInstance().getOdometryPoseProvider().getPose();
+			ActionFactory.stopMotion(false);
+			Pose nouvellePose = Robot.getInstance().getOdometryPoseProvider().getPose();
+			System.out.println(nouvellePose.distanceTo(pose.getLocation()));
+			stop();
+		}
+		/*
 		if(state == 0) {
 			System.out.println("debut");
 			ActionFactory.goForward(10000, true);
-			ActionFactory.wait(1000, "dodo", true);
+			ActionFactory.wait(10000, "dodo", true);
 			state++;
 		}
 		else if(state == 1) {

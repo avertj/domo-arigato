@@ -40,10 +40,10 @@ class GoForward extends RunnableRobot {
 			Delay.msDelay(duration);
 			if(!getInterrupted()) {
 				Robot.getInstance().getMotion().getPilot().stop();
-				Robot.getInstance().warn(new Event(TypeEvent.GOFORWARDEND));
+				Robot.getInstance().warn(new Event(TypeEvent.GOFORWARD_END));
 			}
 			else
-				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARDEND.toString()));
+				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARD_END.toString()));
 		}
 		else {
 			Robot.getInstance().getMotion().getPilot().travel(distance, true);
@@ -55,10 +55,10 @@ class GoForward extends RunnableRobot {
 					break;
 			}
 			if(!getInterrupted()) {
-				Robot.getInstance().warn(new Event(TypeEvent.GOFORWARDEND));
+				Robot.getInstance().warn(new Event(TypeEvent.GOFORWARD_END));
 			}
 			else
-				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARDEND.toString()));
+				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARD_END.toString()));
 		}
 	}
 }

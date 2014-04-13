@@ -13,8 +13,8 @@ public class TrouverPalet extends EventListener {
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
-		case USECLAWSEND :
-		case ROTATEEND :
+		case USECLAWS_END :
+		case ROTATE_END :
 			end=true;
 			break;
 		case BUMP :
@@ -24,7 +24,7 @@ public class TrouverPalet extends EventListener {
 			else
 				ignore();
 			break;
-		case WAITEND :
+		case WAIT_END :
 			if(state == -1) {
 				state = 0;
 			}
@@ -51,20 +51,22 @@ public class TrouverPalet extends EventListener {
 				}
 				else {
 					Robot.getInstance().getMotion().getPilot().setRotateSpeed(30);
-					ActionFactory.rotate(180, true);
+					//ActionFactory.rotate(180, true);
 					state++;
 					ActionFactory.wait(5, "", true);
 				}
 			}
 			else if(state == 1) {
-				float res = Robot.getInstance().getSonar().getMinDist();
+				System.out.println("distance : "+Robot.getInstance().getSonar().getMinDist());
+				ActionFactory.wait(1000, "", true);
+				/*float res = Robot.getInstance().getSonar().getMinDist();
 				if(res>20 && res<50){
 					System.out.println("distance : "+res);
 					ActionFactory.goForward(100.f, true);
 					state=2;
 				}
 				else
-					ActionFactory.wait(5, "", true);
+					ActionFactory.wait(5, "", true);*/
 			}
 			else if(state == 3){
 				ActionFactory.stopMotion(true);

@@ -25,27 +25,27 @@ public class Test2Thread extends EventListener {
 		case SHUTDOWN :
 			stop();
 			break;
-		case USECLAWSEND :
+		case USECLAWS_END :
 			System.out.println("State : "+state);
 			state++;
 			break;
-		case ROTATEEND :
+		case ROTATE_END :
 			System.out.println("State : "+state);
 			state++;
 			break;
-		case GOFORWARDEND :
+		case GOFORWARD_END :
 			System.out.println("State : "+state);
 			state++;
 			break;
-		case GOBACKWARDEND :
+		case GOBACKWARD_END :
 			System.out.println("State : "+state);
 			state++;
 			break;
-		case STRAIGHTMOVEEND :
+		case STRAIGHTMOVE_END :
 			System.out.println("State : "+state);
 			state++;
 			break;
-		case ARCEND :
+		case ARC_END :
 			System.out.println("State : "+state);
 			state++;
 			break;

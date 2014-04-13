@@ -74,7 +74,7 @@ public class Robot {
 	 */
 	public void initSensors(SensorPort sonar, SensorPort colorEyes, SensorPort bumper) {
 		this.sonar.initSonar(sonar);
-		//this.eyes.initEyes(colorEyes);
+		this.eyes.initEyes(colorEyes);
 		this.bumper.initBumper(bumper);
 	}
 	
@@ -121,8 +121,9 @@ public class Robot {
 	 * @return true if there is an eventListener, false otherwise.
 	 */
 	public boolean warn(Event event) {
-		if(event.getTypeEvent().equals(TypeEvent.SHUTDOWN))
+		if(event.getTypeEvent().equals(TypeEvent.SHUTDOWN)) {
 			eyes.closeEyes();
+		}
 		if(eventListener == null || brain == null)
 			return false;
 		brain.interrupt();

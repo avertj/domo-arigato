@@ -6,6 +6,7 @@ public class Event {
 	
 	public Event(TypeEvent typeEvent) {
 		this.typeEvent = typeEvent;
+		name = "";
 	}
 	
 	public Event(TypeEvent typeEvent, String name) {

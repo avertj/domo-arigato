@@ -19,27 +19,27 @@ public class TestThread extends EventListener {
 		case SHUTDOWN :
 			stop();
 			break;
-		case PLAYMUSICEND :
+		case PLAYMUSIC_END :
 			end = true;
 			break;
-		case GOFORWARDEND :
+		case GOFORWARD_END :
 			state = 1;
 			robotMoving = false;
 			break;
-		case GOBACKWARDEND :
+		case GOBACKWARD_END :
 			state = 2;
 			robotMoving = false;
 			break;
-		case ROTATEEND :
+		case ROTATE_END :
 			state = 0;
 			robotMoving = false;
 			break;
-		case USECLAWSEND :
+		case USECLAWS_END :
 			clawsMoving = false;
 			attente = true;
 			nextclawsOpenure = 1.0f - nextclawsOpenure;
 			break;
-		case WAITEND :
+		case WAIT_END :
 			if(event.getName().equals("end"))
 				end = true;
 			else

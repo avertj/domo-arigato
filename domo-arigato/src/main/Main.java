@@ -15,9 +15,10 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
+    	Alignement behavior = new Alignement();
     	//Test2Thread behavior = new Test2Thread();
     	//TestDodo behavior = new TestDodo();
-    	TrouverPalet behavior = new TrouverPalet();
+    	//TrouverPalet behavior = new TrouverPalet();
     	robot.changeEventListener(behavior);
     	
     	Button.ENTER.waitForPressAndRelease();

@@ -24,9 +24,9 @@ public class EyesRun extends RunnableRobot {
 			TypeEvent curr;
 			// < 50 = noir
 			if(lightValue < 50) {
-				curr = TypeEvent.BLACKDETECTED;
+				curr = TypeEvent.BLACK_DETECTED;
 			} else {
-				curr = TypeEvent.WHITEDETECTED;
+				curr = TypeEvent.WHITE_DETECTED;
 			}
 			
 			if(prev == null || prev != curr) {

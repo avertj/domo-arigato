@@ -50,15 +50,15 @@ class StraightMove extends RunnableRobot {
 						break;
 				}
 				if(!getInterrupted()) {
-					Robot.getInstance().warn(new Event(TypeEvent.STRAIGHTMOVEEND));
+					Robot.getInstance().warn(new Event(TypeEvent.STRAIGHTMOVE_END));
 				}
 				else
-					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVEEND.toString()));
+					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVE_END.toString()));
 			}
 			else
-				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVEEND.toString()));
+				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVE_END.toString()));
 		}
 		else
-			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVEEND.toString()));
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.STRAIGHTMOVE_END.toString()));
 	}
 }

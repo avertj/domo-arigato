@@ -13,7 +13,7 @@ public class TestPoses extends EventListener {
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
-		case STRAIGHTMOVEEND :
+		case STRAIGHTMOVE_END :
 			state++;
 			break;
 		default:

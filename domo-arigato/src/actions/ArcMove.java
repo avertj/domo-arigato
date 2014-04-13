@@ -47,10 +47,10 @@ class ArcMove extends RunnableRobot {
 			Delay.msDelay(10000);
 			if(!getInterrupted()) {
 				Robot.getInstance().getMotion().getPilot().stop();
-				Robot.getInstance().warn(new Event(TypeEvent.ARCEND));
+				Robot.getInstance().warn(new Event(TypeEvent.ARC_END));
 			}
 			else
-				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.ARCEND.toString()));
+				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.ARC_END.toString()));
 		}
 		else {
 			Robot.getInstance().getMotion().getPilot().arc(radius, angle, true);
@@ -62,10 +62,10 @@ class ArcMove extends RunnableRobot {
 					break;
 			}
 			if(!getInterrupted()) {
-				Robot.getInstance().warn(new Event(TypeEvent.ARCEND));
+				Robot.getInstance().warn(new Event(TypeEvent.ARC_END));
 			}
 			else
-				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.ARCEND.toString()));
+				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.ARC_END.toString()));
 		}
 	}
 }

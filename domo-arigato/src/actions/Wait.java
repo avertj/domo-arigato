@@ -21,9 +21,9 @@ class Wait extends RunnableRobot {
 	public void run() {
 		Delay.msDelay(duration);
 		if(!getInterrupted()) {
-			Robot.getInstance().warn(new Event(TypeEvent.WAITEND, name));
+			Robot.getInstance().warn(new Event(TypeEvent.WAIT_END, name));
 		}
 		else
-			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.WAITEND.toString()));
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.WAIT_END.toString()));
 	}
 }

@@ -21,9 +21,9 @@ class UseClaws extends RunnableRobot {
 	public void run() {
 		Robot.getInstance().getClaws().setState(clawsState, false);
 		if(!getInterrupted()) {
-			Robot.getInstance().warn(new Event(TypeEvent.USECLAWSEND));
+			Robot.getInstance().warn(new Event(TypeEvent.USECLAWS_END));
 		}
 		else
-			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.USECLAWSEND.toString()));
+			Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.USECLAWS_END.toString()));
 	}
 }

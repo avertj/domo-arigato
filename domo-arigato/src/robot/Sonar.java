@@ -49,15 +49,7 @@ public class Sonar implements FeatureListener{
 	}
 	
 	public float getMinDist() {
-		if(System.currentTimeMillis()-time > 2*TIMER_DETECTION) {
-			return 0.0f;
-		}
-		if(lectures.size() == 0 || lectures.get(lectures.size()-1).size() == 0)
-			return 0.0f;
-		float min = lectures.get(lectures.size() - 1).get(0);
-		for(int i = 1; i < lectures.get(lectures.size() - 1).size(); i++)
-			min = Math.min(min, lectures.get(lectures.size()-1).get(i));
-		return min;
+		return us.getRange();
 	}
 	
 	/**

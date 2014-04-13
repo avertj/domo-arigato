@@ -1,11 +1,14 @@
 package robot;
 
 import actions.Event;
+import actions.TypeEvent;
 
 public abstract class EventListener implements Runnable {
 	private static final Object lock = new Object();
 	private boolean end = false;
-	private volatile boolean ignore = false;
+	private boolean ignore = false;
+	private EventListener childBehavior = null;
+	private EventListener fatherBehavior = null;
 	
 	/**
 	 * This method is call after the end of an action or can be call at other moments.
@@ -33,10 +36,15 @@ public abstract class EventListener implements Runnable {
 	
 	void synchronizedWarn(Event event) {
 		synchronized(lock) {
-			warn(event);
-			if(!ignore)
-				act();
-			ignore = false;
+			if(childBehavior != null) {
+				childBehavior.synchronizedWarn(event);
+			}
+			else {
+				warn(event);
+				if(!ignore)
+					act();
+				ignore = false;
+			}
 		}
 	}
 	
@@ -45,6 +53,25 @@ public abstract class EventListener implements Runnable {
 	 */
 	public void stop() {
 		end = true;
-		Robot.getInstance().changeEventListener(null);
+		if(fatherBehavior == null)
+			Robot.getInstance().changeEventListener(null);
+		else
+			fatherBehavior.synchronizedWarn(new Event(TypeEvent.BEHAVIOR_END));
+	}
+	
+	/**
+	 * Call this method to end the infinite loop of the EventListener
+	 */
+	public void stop(String message) {
+		end = true;
+		if(fatherBehavior == null)
+			Robot.getInstance().changeEventListener(null);
+		else
+			fatherBehavior.synchronizedWarn(new Event(TypeEvent.BEHAVIOR_END, message));
+	}
+	
+	protected void doBehavior(EventListener child) {
+		child.fatherBehavior = this;
+		childBehavior = child;
 	}
 }

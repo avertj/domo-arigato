@@ -116,7 +116,7 @@ public abstract class Music extends RunnableRobot {
 	
 	public void run() {
 		playMusic();
-		Robot.getInstance().warn(new Event(TypeEvent.PLAYMUSICEND, name));
+		Robot.getInstance().warn(new Event(TypeEvent.PLAYMUSIC_END, name));
 	}
 	
 	protected abstract void playMusic();
