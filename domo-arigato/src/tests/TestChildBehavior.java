@@ -1,5 +1,6 @@
-package main;
+package tests;
 
+import main.AlignementBehavior;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
@@ -56,7 +57,7 @@ public class TestChildBehavior extends EventListener {
 					doBehavior(tcb);
 				}
 				else
-					doBehavior(new Alignement());
+					doBehavior(new AlignementBehavior());
 			}
 			else if(state == 2) {
 				if(args == null) {

@@ -8,6 +8,7 @@ import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import robot.Robot;
 import robot.StartPosition;
+import tests.TestChildBehavior;
 
 public class Main {
     public static void main(String[] args) {

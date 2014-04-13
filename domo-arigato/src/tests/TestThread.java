@@ -1,4 +1,4 @@
-package main;
+package tests;
 
 import actions.ActionFactory;
 import actions.Event;

@@ -3,7 +3,7 @@ package main;
 import actions.Event;
 import robot.EventListener;
 
-public class Behavior extends EventListener {
+public class ShutdownBehavior extends EventListener {
 
 	public void warn(Event event) {
 		switch(event.getTypeEvent())

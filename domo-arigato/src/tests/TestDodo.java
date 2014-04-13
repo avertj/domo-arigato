@@ -1,4 +1,4 @@
-package main;
+package tests;
 
 import lejos.robotics.navigation.Pose;
 import actions.ActionFactory;

@@ -6,7 +6,7 @@ import actions.Event;
 import robot.EventListener;
 import robot.Robot;
 
-public class Alignement extends EventListener {
+public class AlignementBehavior extends EventListener {
 	int state = 0;
 	Pose pose;
 	float offset = 0.0f;
