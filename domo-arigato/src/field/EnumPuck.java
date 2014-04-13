@@ -1,15 +1,15 @@
 package field;
 
 public enum EnumPuck {
-	RED_GREEN(0),
-	RED_GREY(1),
-	RED_BLUE(2),
-	BLACK_GREEN(3),
-	BLACK_GREY(4),
-	BLACK_BLUE(5),
-	YELLOW_GREEN(6),
-	YELLOW_GREY(7),
-	YELLOW_BLUE(8);
+	NW(0),
+	N(1),
+	NE(2),
+	W(3),
+	M(4),
+	E(5),
+	SW(6),
+	S(7),
+	SE(8);
 	
 	private int num;
 	
