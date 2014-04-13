@@ -10,6 +10,7 @@ public class EyesRun extends RunnableRobot {
 	lejos.robotics.Color color;
 	int lightValue;
 	TypeEvent prev;
+	int BLACK_WHITE_DIFFERENCE = 45;
 	
 	public EyesRun(ColorEyes eyes) {
 		this.eyes = eyes;
@@ -23,7 +24,7 @@ public class EyesRun extends RunnableRobot {
 			lightValue = eyes.getLightValue();
 			TypeEvent curr;
 			// < 50 = noir
-			if(lightValue < 50) {
+			if(lightValue < BLACK_WHITE_DIFFERENCE) {
 				curr = TypeEvent.BLACK_DETECTED;
 			} else {
 				curr = TypeEvent.WHITE_DETECTED;

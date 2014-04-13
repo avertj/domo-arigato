@@ -3,8 +3,6 @@ package main;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
-import robot.Robot;
-import utils.Tuple;
 
 public class TestChildBehavior extends EventListener {
 	int state = 0;
@@ -16,6 +14,9 @@ public class TestChildBehavior extends EventListener {
 		case GOBACKWARD_END :
 			if(state == 0) {
 				state++;
+			}
+			else if(state ==2) {
+				fin = true;
 			}
 			else {
 				ignore();
@@ -49,10 +50,20 @@ public class TestChildBehavior extends EventListener {
 				ActionFactory.goBackward(5.0f, true);
 			}
 			else if(state == 1) {
-				doBehavior(new TrouverPalet());
+				if(args == null) {
+					TestChildBehavior tcb = new TestChildBehavior();
+					tcb.args = new String[] {"Hey"};
+					doBehavior(tcb);
+				}
+				else
+					doBehavior(new Alignement());
 			}
 			else if(state == 2) {
-				ActionFactory.goForward(15.0f, true);
+				if(args == null) {
+					ActionFactory.goForward(15.0f, true);
+				}
+				else
+					ActionFactory.goBackward(15.0f, true);
 			}
 		}
 		else

@@ -9,6 +9,7 @@ public abstract class EventListener implements Runnable {
 	private boolean ignore = false;
 	private EventListener childBehavior = null;
 	private EventListener fatherBehavior = null;
+	protected String[] args;
 	
 	/**
 	 * This method is call after the end of an action or can be call at other moments.
@@ -76,5 +77,6 @@ public abstract class EventListener implements Runnable {
 	protected void doBehavior(EventListener child) {
 		child.fatherBehavior = this;
 		childBehavior = child;
+		child.act();
 	}
 }

@@ -15,11 +15,9 @@ public class Alignement extends EventListener {
 		switch(event.getTypeEvent())
 		{
 		case WHITE_DETECTED :
-			System.out.println("White");
 			ignore();
 			break;
 		case BLACK_DETECTED :
-			System.out.println("Black");
 			if(state == 1) {
 				state = 2;
 			}
