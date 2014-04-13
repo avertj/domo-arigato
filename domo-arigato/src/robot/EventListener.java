@@ -35,6 +35,9 @@ public abstract class EventListener implements Runnable {
 	}
 	
 	void synchronizedWarn(Event event) {
+		if(event != null && event.getTypeEvent().equals(TypeEvent.CHILDBEHAVIOR_END)) {
+			childBehavior = null;
+		}
 		synchronized(lock) {
 			if(childBehavior != null) {
 				childBehavior.synchronizedWarn(event);
@@ -56,7 +59,7 @@ public abstract class EventListener implements Runnable {
 		if(fatherBehavior == null)
 			Robot.getInstance().changeEventListener(null);
 		else
-			fatherBehavior.synchronizedWarn(new Event(TypeEvent.BEHAVIOR_END));
+			fatherBehavior.synchronizedWarn(new Event(TypeEvent.CHILDBEHAVIOR_END));
 	}
 	
 	/**
@@ -67,7 +70,7 @@ public abstract class EventListener implements Runnable {
 		if(fatherBehavior == null)
 			Robot.getInstance().changeEventListener(null);
 		else
-			fatherBehavior.synchronizedWarn(new Event(TypeEvent.BEHAVIOR_END, message));
+			fatherBehavior.synchronizedWarn(new Event(TypeEvent.CHILDBEHAVIOR_END, message));
 	}
 	
 	protected void doBehavior(EventListener child) {

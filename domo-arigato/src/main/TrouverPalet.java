@@ -40,7 +40,6 @@ public class TrouverPalet extends EventListener {
 	public void act() {
 		if(!end){
 			if(state == -1) {
-				System.out.println("debut");
 				ActionFactory.wait(1000, "", true);
 			}
 			else if(state == 0) {
