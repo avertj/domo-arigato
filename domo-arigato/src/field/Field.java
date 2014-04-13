@@ -1,8 +1,10 @@
 package field;
 
-import lejos.geom.Point;
+import java.awt.Point;
+
 
 public class Field {
+	public static final int PUCK_RADIUS = 15;
 	private Point[] positions;
 	private boolean[] present;
 
