@@ -56,7 +56,10 @@ public class ActionFactory {
 	 * @param createThread True if you want to create a thread for this task.
 	 */
 	public static void goForward(float distance, boolean createThread) {
-		new GoForward(distance, createThread);
+		if(distance >= 0)
+			new GoForward(distance, createThread, false);
+		else
+			new GoBackward(-distance, createThread, true);
 	}
 	
 	/**
@@ -95,7 +98,10 @@ public class ActionFactory {
 	 * @param createThread True if you want to create a thread for this task.
 	 */
 	public static void goBackward(float distance, boolean createThread) {
-		new GoBackward(distance, createThread);
+		if(distance >= 0)
+			new GoBackward(distance, createThread, false);
+		else
+			new GoForward(-distance, createThread, true);
 	}
 	
 	/**

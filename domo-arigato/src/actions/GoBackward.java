@@ -6,6 +6,7 @@ import robot.Robot;
 class GoBackward extends RunnableRobot {
 	private int duration;
 	private float distance;
+	private boolean neg;
 	
 	GoBackward(int duration, boolean createThread) {
 		this.duration = duration;
@@ -20,7 +21,8 @@ class GoBackward extends RunnableRobot {
 			run();
 	}
 	
-	GoBackward(float distance, boolean createThread) {
+	GoBackward(float distance, boolean createThread, boolean neg) {
+		this.neg = neg;
 		this.duration = -1;
 		this.distance = distance;
 		if(createThread) {
@@ -42,8 +44,9 @@ class GoBackward extends RunnableRobot {
 				Robot.getInstance().getMotion().getPilot().stop();
 				Robot.getInstance().warn(new Event(TypeEvent.GOBACKWARD_END));
 			}
-			else
+			else {
 				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOBACKWARD_END.toString()));
+			}
 		}
 		else {
 			Robot.getInstance().getMotion().getPilot().travel(-distance, true);
@@ -55,10 +58,17 @@ class GoBackward extends RunnableRobot {
 					break;
 			}
 			if(!getInterrupted()) {
-				Robot.getInstance().warn(new Event(TypeEvent.GOBACKWARD_END));
+				if(!neg)
+					Robot.getInstance().warn(new Event(TypeEvent.GOBACKWARD_END));
+				else
+					Robot.getInstance().warn(new Event(TypeEvent.GOFORWARD_END));
 			}
-			else
-				Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOBACKWARD_END.toString()));
+			else {
+				if(!neg)
+					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOBACKWARD_END.toString()));
+				else
+					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOFORWARD_END.toString()));
+			}
 		}
 	}
 }

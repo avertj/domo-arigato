@@ -10,7 +10,8 @@ public class EyesRun extends RunnableRobot {
 	lejos.robotics.Color color;
 	int lightValue;
 	TypeEvent prev;
-	int BLACK_WHITE_DIFFERENCE = 45;
+	int MAX_BLACK = 40;
+	int MIN_WHITE = 50;
 	
 	public EyesRun(ColorEyes eyes) {
 		this.eyes = eyes;
@@ -22,17 +23,19 @@ public class EyesRun extends RunnableRobot {
 			Delay.msDelay(5);
 			//color = eyes.getColor();
 			lightValue = eyes.getLightValue();
-			TypeEvent curr;
+			TypeEvent curr = null;
 			// < 50 = noir
-			if(lightValue < BLACK_WHITE_DIFFERENCE) {
+			if(lightValue < MAX_BLACK) {
 				curr = TypeEvent.BLACK_DETECTED;
-			} else {
+			} else if(lightValue > MIN_WHITE){
 				curr = TypeEvent.WHITE_DETECTED;
 			}
 			
-			if(prev == null || prev != curr) {
-				Robot.getInstance().warn(new Event(curr));
-				prev = curr;
+			if(curr != null) {
+				if(prev == null || prev != curr) {
+					Robot.getInstance().warn(new Event(curr));
+					prev = curr;
+				}
 			}
 		}
 			//System.out.println("light value : " + lightValue);

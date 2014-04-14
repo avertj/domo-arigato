@@ -29,10 +29,7 @@ public class ColorEyes {
 		Delay.msDelay(100);
 		System.out.println(sensor.getData(0x42, buf, 1));
 		System.out.println(buf[0]);*//*
-		cs = new ColorHTSensor(eyes);
-		thread = new EyesRun(this);
-		Thread t = new Thread(thread);
-		t.start();*/
+		cs = new ColorHTSensor(eyes);*/
 		eyes.activate();
 		ls = new LightSensor(eyes);
 		ls.setFloodlight(true);

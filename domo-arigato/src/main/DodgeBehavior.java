@@ -2,9 +2,9 @@ package main;
 
 import actions.ActionFactory;
 import actions.Event;
-import actions.TypeEvent;
 import robot.EventListener;
 import robot.Robot;
+import lejos.robotics.navigation.Pose;
 import music.BipRobot;
 
 public class DodgeBehavior extends EventListener {
@@ -12,27 +12,43 @@ public class DodgeBehavior extends EventListener {
 	int nbDetectionRobot = 0;
 	float distEnnemie;
 	boolean clawsOpen;
-	private int MinDistPallet = Robot.getInstance().getSonar().getMinDistPallet();
+	boolean left = false;
 	
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
-		case ROBOT_DETECTED :
-			ignore();
-			break;
-			
 		case END_ROBOT_DETECTED :
-			ignore();
+			if(state == 0)
+				state = 5;
+			else if(state == 1)
+				state = 4;
+			else
+				ignore();
 			break;
-			
 		case WAIT_END :
-				if(nbDetectionRobot == 6)
-				{
-					nbDetectionRobot = 0;
-					state = 1;
-				}
+			if(state == 0)
+				state = 1;
+			else
+				ignore();
 			break;
-			
+		case GOFORWARD_END :
+			if(state == 1)
+				state = 2;
+			else
+				ignore();
+			break;
+		case ROTATE_END :
+			if(state == 2)
+				state = 3;
+			else
+				ignore();
+			break;
+		case ARC_END :
+			if(state == 3)
+				state = 4;
+			else
+				ignore();
+			break;
 		default:
 			ignore();
 			break;
@@ -41,27 +57,10 @@ public class DodgeBehavior extends EventListener {
 
 	protected void act() {
 		if(state == 0) {
-			float minDist = Robot.getInstance().getSonar().getMinDist();
-			//si on déecte quelque chose de plus proche que la limite de détéction d'un pallet
-			//alors c'est le robot adverse, donc on va attendre 3sec en vérifiant toutes les 500ms si il est toujours la
-			if(minDist<MinDistPallet)
-			{
-				if(nbDetectionRobot==0)
-				{
-					Robot.getInstance().warn(new Event(TypeEvent.ROBOT_DETECTED));
-				}
-				nbDetectionRobot++;
-				ActionFactory.wait(500, "", true);
-			}
-			//sinon on vérifie toutes les 100ms si il y a quelque chose de trop prés
-			else
-			{
-				ActionFactory.wait(100, "", true);
-			}
-			
+			ActionFactory.stopMotion(true);
+			ActionFactory.wait(3000, "Dodge", true);
 		}
 		else if(state == 1) {
-			
 			if(Robot.getInstance().getClaws().getState()==1.0f)
 			{
 				clawsOpen = true;
@@ -75,56 +74,39 @@ public class DodgeBehavior extends EventListener {
 
 			//on s'approche à 10cm du robot adverse
 			distEnnemie = Robot.getInstance().getSonar().getMinDist();
-			ActionFactory.goForward(distEnnemie - 10, true);
-			state = 2;
+			System.out.println(distEnnemie);
+			ActionFactory.goForward(distEnnemie - 16, true);
 		}
 		
 		else if(state == 2) {
-			distEnnemie = Robot.getInstance().getSonar().getMinDist();
-			//si on a plus l'ennemie devant nous alors on reprends l'automate au début
-			if(distEnnemie>MinDistPallet)
-			{
-				Robot.getInstance().warn(new Event(TypeEvent.END_ROBOT_DETECTED));
-				state=0;
-				ActionFactory.wait(100, "", true);
-			}
-			else
-			{
-				//on joue un petit son devant le robot ennemie pour le narguer
-				BipRobot bip = new BipRobot();
-				bip.playMusic();
-			}
-		}
-		
-		else if(state == 3) {
-			float minDist = Robot.getInstance().getSonar().getMinDist();
+			//on joue un petit son devant le robot ennemie pour le narguer
+			BipRobot bip = new BipRobot();
+			ActionFactory.playMusic(bip, true);
 			
-			ActionFactory.rotate(90, true);
-			//si on a pas la place de contourner le robot adverse (ou qu'il y a un pallet) alors
-			//	on contournera par l'autre coté
-			if(minDist<40)												//////////////////// LE 40 EST A VERIFIER !!!
-			{
-				ActionFactory.rotate(-180, true);
-				ActionFactory.arcMove(90, 40, true);					//////////////////// ADAPTER LE RADIUS EN CONSEQUENT !!!
-			}
+			Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+			if(myPose.getX() > 60 && myPose.getHeading()%360 < 145 || myPose.getX() < -60 && (myPose.getHeading()-180)%360 < 145)
+				left = true;
+			if(left)
+				ActionFactory.rotate(90, true);
 			else
-			{
-				ActionFactory.arcMove(-90, -40, true);					//////////////////// ADAPTER LE RADIUS EN CONSEQUENT !!!
-				
-			}
-				
-			state = 4;
+				ActionFactory.rotate(-90, true);
 		}
-		
+		else if(state == 3) {
+			if(!left) {
+				ActionFactory.arcMove(90, 20, true);
+			}
+			else {
+				ActionFactory.arcMove(-90, -20, true);
+			}
+		}
 		else if(state == 4) {
 			if(clawsOpen)
 			{
-				ActionFactory.useClaws(1,false);
+				ActionFactory.useClaws(1,true);
 			}
-			//on avance au moin suffisament pour etre à coté du robot adverse puis on repart au début de l'automate
-			ActionFactory.goForward(15, true);
-			Robot.getInstance().warn(new Event(TypeEvent.ROBOT_DETECTED));
-			state = 0;
+			state = 5;
 		}
+		if(state == 5)
+			stop();
 	}
 }

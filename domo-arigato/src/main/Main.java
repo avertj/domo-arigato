@@ -9,6 +9,8 @@ import lejos.nxt.SensorPort;
 import robot.Robot;
 import robot.StartPosition;
 import tests.TestChildBehavior;
+import tests.TestDodgeBehavior;
+import tests.TestMusic;
 import tests.TestScore;
 
 public class Main {
@@ -17,7 +19,9 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
-    	TestScore behavior = new TestScore();
+    	TestMusic behavior = new TestMusic();
+    	//TestDodgeBehavior behavior = new TestDodgeBehavior();
+    	//TestScore behavior = new TestScore();
     	//TestChildBehavior behavior = new TestChildBehavior();
     	//Alignement behavior = new Alignement();
     	//Test2Thread behavior = new Test2Thread();

@@ -21,15 +21,17 @@ public class Sonar implements FeatureListener{
 	private static final Object lock = new Object();
 	private static final int SIZE_LECTURE = 5;
 	private long time = 0;
-	private static int MinDistPallet=20;
-	private static int MaxDistPallet=50;
+	private int MinDistPallet=23;
+	private int MaxDistPallet=50;
+	private int lastMinDist = 60;
+	private SonarRun thread;
 	
 	
-	public static int getMinDistPallet() {
+	public int getMinDistPallet() {
 		return MinDistPallet;
 	}
 
-	public static int getMaxDistPallet() {
+	public int getMaxDistPallet() {
 		return MaxDistPallet;
 	}
 
@@ -40,8 +42,11 @@ public class Sonar implements FeatureListener{
 	
 	void initSonar(SensorPort sonar) {
 		us = new UltrasonicSensor(sonar);
-		rfd = new RangeFeatureDetector(us, MAX_RANGE, TIMER_DETECTION);
-		rfd.addListener(this);
+		//rfd = new RangeFeatureDetector(us, MAX_RANGE, TIMER_DETECTION);
+		//rfd.addListener(this);
+		thread = new SonarRun(this);
+		Thread t = new Thread(thread);
+		t.start();
 	}
 	
 	public void featureDetected(Feature feature, FeatureDetector detector) {
@@ -102,6 +107,11 @@ public class Sonar implements FeatureListener{
 		if(x <= 2.0f || x >= 10.0f)
 			b = false;
 		return new Tuple<Float, Boolean>(min1, b);
+	}
+
+	public void closeSonar() {
+		if(thread != null)
+			thread.interrupt();
 	}
 	
 	/*

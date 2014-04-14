@@ -123,6 +123,7 @@ public class Robot {
 	public boolean warn(Event event) {
 		if(event.getTypeEvent().equals(TypeEvent.SHUTDOWN)) {
 			eyes.closeEyes();
+			sonar.closeSonar();
 		}
 		if(eventListener == null || brain == null)
 			return false;
