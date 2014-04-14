@@ -21,7 +21,18 @@ public class Sonar implements FeatureListener{
 	private static final Object lock = new Object();
 	private static final int SIZE_LECTURE = 5;
 	private long time = 0;
+	private static int MinDistPallet=20;
+	private static int MaxDistPallet=50;
 	
+	
+	public static int getMinDistPallet() {
+		return MinDistPallet;
+	}
+
+	public static int getMaxDistPallet() {
+		return MaxDistPallet;
+	}
+
 	Sonar() {
 		lectures = new ArrayList<ArrayList<Float>>();
 		poses = new ArrayList<Pose>();
