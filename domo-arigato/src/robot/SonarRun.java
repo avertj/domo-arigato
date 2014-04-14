@@ -22,10 +22,11 @@ public class SonarRun extends RunnableRobot {
 		while(!getInterrupted()) {
 			Delay.msDelay(DELAY);
 			float min = sonar.getMinDist();
-			if(min > 220) {
+			if(min > 220 && distances.size() > 0) {
 				distances.add(distances.get(distances.size() - 1));
 			}
-			distances.add(min);
+			else
+				distances.add(min);
 			if(distances.size() == 5) {
 				min = 0;
 				for(int i = 0; i < 5; i++) {

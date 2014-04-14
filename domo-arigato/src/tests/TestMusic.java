@@ -24,6 +24,7 @@ public class TestMusic extends EventListener {
 	public void act() {
 		if(debut) {
 			debut = false;
+			ActionFactory.wait(500, "", false);
 			ActionFactory.playMusic(new MarioBros(), true);
 		}
 		else if(fin) {
