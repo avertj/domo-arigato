@@ -19,8 +19,8 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
-    	//TestMusic behavior = new TestMusic();
-    	TestDodgeBehavior behavior = new TestDodgeBehavior();
+    	TestMusic behavior = new TestMusic();
+    	//TestDodgeBehavior behavior = new TestDodgeBehavior();
     	//TestScore behavior = new TestScore();
     	//TestChildBehavior behavior = new TestChildBehavior();
     	//Alignement behavior = new Alignement();

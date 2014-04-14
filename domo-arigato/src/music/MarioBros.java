@@ -3,7 +3,7 @@ package music;
 import lejos.util.Delay;
 
 public class MarioBros extends Music {
-	private static final int speed=600;
+	private static final int speed=300;
 	
 	public MarioBros() {
 		super(speed);
@@ -25,6 +25,7 @@ public class MarioBros extends Music {
 		Delay.msDelay(QUARTER);
 		loop1();
 		loop1();
+		loop2();
 		loop2();
 	}
 	
@@ -80,10 +81,10 @@ public class MarioBros extends Music {
 		Delay.msDelay(HEIGHT);
 		play(PIANO, MI[3], HEIGHT, false);
 		Delay.msDelay(HEIGHT);
-		play(PIANO, DO[3], QUARTER, false);
+		play(PIANO, DO[4], QUARTER, false);
 		Delay.msDelay(HEIGHT);
-		play(PIANO, DO[3], QUARTER, false);
-		play(PIANO, DO[3], QUARTER, false);
+		play(PIANO, DO[4], QUARTER, false);
+		play(PIANO, DO[4], QUARTER, false);
 		Delay.msDelay(QUARTER);
 		Delay.msDelay(QUARTER);
 		play(PIANO, SOL[3], HEIGHT, false);
