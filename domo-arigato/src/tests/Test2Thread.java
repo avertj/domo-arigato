@@ -1,10 +1,12 @@
 package tests;
 
 import lejos.robotics.navigation.Pose;
+import main.DodgeBehavior;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
 import robot.Robot;
+import utils.Tuple;
 
 public class Test2Thread extends EventListener {
 	int state = 0;
@@ -53,6 +55,13 @@ public class Test2Thread extends EventListener {
 			ignore = true;
 			System.out.println("Interompu : "+event.getName());
 			break;
+		case WAIT_END:
+			Tuple<Float, Boolean> res=Robot.getInstance().getSonar().getMinDistance();
+			if(res.getY() && res.getX()<20){
+				this.doBehavior(new DodgeBehavior());
+			}
+			ActionFactory.wait(10,  "", true);
+			break;
 		default:
 			break;
 		}
@@ -74,13 +83,14 @@ public class Test2Thread extends EventListener {
 					ActionFactory.useClaws(0.0f, true);
 					break;
 				case 2 :
-					ActionFactory.arcMove(-45, -20, true);
+					ActionFactory.arcMove(-30, -40, true);
 					break;
 				case 3 :
-					ActionFactory.arcMove(45, 20, true);
+					ActionFactory.arcMove(30, 40, true);
 					break;
 				case 4 :
 					ActionFactory.straightMove(new Pose(20, 120, 90), true);
+					ActionFactory.wait(10, "", true);
 					break;
 				case 5 :
 					ActionFactory.useClaws(1.0f, true);
@@ -89,7 +99,7 @@ public class Test2Thread extends EventListener {
 					ActionFactory.goBackward(10.0f, true);
 					break;
 				case 7 :
-					ActionFactory.straightMove(new Pose(0, -120, 90), true);
+					ActionFactory.rotate(180, true);
 					break;
 				case 8 :
 					stop();
