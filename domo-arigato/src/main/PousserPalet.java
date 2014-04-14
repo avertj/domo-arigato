@@ -5,6 +5,7 @@ import actions.Event;
 import robot.EventListener;
 
 public class PousserPalet extends EventListener {	
+	boolean debut = true;
 	@Override
 	public void warn(Event event) {
 		
@@ -12,8 +13,11 @@ public class PousserPalet extends EventListener {
 
 	@Override
 	protected void act() {
-		ActionFactory.useClaws(0,false);
-		stop();
+		if(debut) {
+			debut = false;
+			ActionFactory.useClaws(0,false);
+			stop();
+		}
 	}
 
 }

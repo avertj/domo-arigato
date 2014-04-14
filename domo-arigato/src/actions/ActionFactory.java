@@ -61,7 +61,7 @@ public class ActionFactory {
 	
 	/**
 	 * Move along an arc.
-	 * if you want to go forward, left = angle, radius > 0. right = angle, radius >0.
+	 * if you want to go forward, left = angle, radius > 0. right = angle, radius < 0.
 	 * @param angle the angle to go throw around the circle.
 	 * @param radius the radius of the circle
 	 * @param createThread True if you want to create a thread for this task.
