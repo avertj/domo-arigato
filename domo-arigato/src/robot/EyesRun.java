@@ -10,7 +10,7 @@ public class EyesRun extends RunnableRobot {
 	lejos.robotics.Color color;
 	int lightValue;
 	TypeEvent prev;
-	int MAX_BLACK = 40;
+	int MAX_BLACK = 45;
 	int MIN_WHITE = 50;
 	
 	public EyesRun(ColorEyes eyes) {

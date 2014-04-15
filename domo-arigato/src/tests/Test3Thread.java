@@ -1,27 +1,26 @@
 package tests;
 
 import lejos.robotics.navigation.Pose;
+import main.AlignementBehavior;
+import main.FollowLineBehavior2;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
 import robot.Robot;
+import utils.Geometry;
 
 public class Test3Thread extends EventListener {
-	int state = 0;
-	boolean robotMoving = false;
 	boolean debut = true;
-	boolean end = false;
+	int state = 0;
 
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
-		case SHUTDOWN :
-			stop();
+		case CHILDBEHAVIOR_END :
+			state++;
 			break;
-		case ROTATE_END :
-			state = 1 - state;
-			robotMoving = false;
 		default:
+			ignore();
 			break;
 		}
 	}
@@ -29,25 +28,21 @@ public class Test3Thread extends EventListener {
 	public void act() {
 		if(debut) {
 			debut = false;
-	    	Pose p = new Pose(0, 0, 0);
-	    	Robot.getInstance().getOdometryPoseProvider().setPose(p);
-			robotMoving = true;
-			ActionFactory.rotate(45, true);
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(13, 10, 170));
 		}
-		else if(state == 10) {
-			end = true;
+		if(state == 0) {
+			doBehavior(new AlignementBehavior(false));
 		}
-		else if(!robotMoving) {
-			Pose p = null;String s=null;
-			switch(state) {
-			case 0 :
-				ActionFactory.rotate(45, true);
-				break;
-			case 1 :
-				ActionFactory.rotate(-45, true);
-				break;
-			}
-			robotMoving = true;
+		else if(state == 1) {
+			doBehavior(new FollowLineBehavior2(100));
+		}
+		else {
+			Geometry.adjustHeading();
+			Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+			System.out.println("X : "+myPose.getX());
+			System.out.println("Y : "+myPose.getY());
+			System.out.println("H : "+myPose.getHeading());
+			stop();
 		}
 	}
 }

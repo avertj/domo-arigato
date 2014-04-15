@@ -57,7 +57,7 @@ public class TestChildBehavior extends EventListener {
 					doBehavior(tcb);
 				}
 				else
-					doBehavior(new AlignementBehavior());
+					doBehavior(new AlignementBehavior(true));
 			}
 			else if(state == 2) {
 				if(args == null) {

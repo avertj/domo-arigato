@@ -5,11 +5,19 @@ import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
 import robot.Robot;
+import utils.Geometry;
 
 public class AlignementBehavior extends EventListener {
 	int state = 0;
 	Pose pose;
 	float offset = 0.0f;
+	private int left;
+	
+	public AlignementBehavior(boolean left) {
+		this.left = -1;
+		if(left)
+			this.left = 1;
+	}
 
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
@@ -56,11 +64,12 @@ public class AlignementBehavior extends EventListener {
 			state = 3;
 		}
 		else if(state == 4) {
-			ActionFactory.rotate(180, true);
+			ActionFactory.rotate(180 * left, true);
 			state = 5;
 		}
 		else if(state == 6) {
 			ActionFactory.stopMotion(false);
+			Geometry.adjustHeading();
 			stop();
 		}
 	}

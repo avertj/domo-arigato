@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import lejos.robotics.navigation.Pose;
+import robot.Robot;
 import field.EnumPuck;
 import field.Field;
 
@@ -61,5 +63,22 @@ public class Geometry {
 			return Math.abs(a%360-b%360) <= offset;
 		else
 			return Math.abs((a+180)%360-(b+180)%360) <= offset;
+	}
+	
+	public static void adjustHeading() {
+		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		float heading = myPose.getHeading();
+		if(Geometry.barelyEqualsHeading(heading, 0, 45)) {
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 0));
+		}
+		else if(Geometry.barelyEqualsHeading(heading, 90, 45)) {
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 90));
+		}
+		else if(Geometry.barelyEqualsHeading(heading, 180, 45)) {
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 180));
+		}
+		else if(Geometry.barelyEqualsHeading(heading, 270, 45)) {
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 270));
+		}
 	}
 }

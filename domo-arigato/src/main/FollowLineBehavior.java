@@ -23,13 +23,13 @@ public class FollowLineBehavior extends EventListener {
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
-		case WHITE_DETECTED :
+		case WHITE_DETECTED :System.out.println("White");
 			if(state == 0)
 				state = 1;
 			else
 				ignore();
 			break;
-		case BLACK_DETECTED :
+		case BLACK_DETECTED :System.out.println("Black");
 			if(state == 1)
 				state = 2;
 			else
@@ -81,7 +81,7 @@ public class FollowLineBehavior extends EventListener {
 			else
 				ActionFactory.arcMove(-angleCalibration, -radiusCalibration, true);
 		}
-		else if(state == 2) {
+		else if(state == 2) {System.out.println(2);
 			float shortRadius = 10.0f;
 			Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 			float currentAngle = (((myPose.getHeading()+45)%90)-45) / 2;
@@ -92,7 +92,7 @@ public class FollowLineBehavior extends EventListener {
 			else
 				ActionFactory.arcMove(Math.abs(currentAngle), shortRadius, true);
 		}
-		else if(state == 3) {
+		else if(state == 3) {System.out.println(3);
 			ActionFactory.goForward(Robot.getInstance().getOdometryPoseProvider().getPose().distanceTo(goal.getLocation()), true);
 		}
 		else if(state == 4) {
