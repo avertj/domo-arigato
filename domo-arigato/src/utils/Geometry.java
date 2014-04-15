@@ -36,4 +36,30 @@ public class Geometry {
 		}
 		return result;
 	}
+	
+	/**
+	 * Use this to know if the coordinates a and b are barely equals (difference <= offset)
+	 * @param a (float)
+	 * @param b (float)
+	 * @param offset (float)
+	 * @return true if they are barely equals.
+	 */
+	public static boolean barelyEqualsCoord(float a, float b, float offset) {
+		return Math.abs(a-b) <= offset;
+	}
+	
+	/**
+	 * Use this to know if the headings a and b are barely equals (difference <= offset).
+	 * this is like barelyEqualsCoord, but it will say that 355 and 0 are barely equals with an offset >= 1.
+	 * @param a (float)
+	 * @param b (float)
+	 * @param offset (float)
+	 * @return true if they are barely equals.
+	 */
+	public static boolean barelyEqualsHeading(float a, float b, float offset) {
+		if(a%360 > 90 && a%360 < 270)
+			return Math.abs(a%360-b%360) <= offset;
+		else
+			return Math.abs((a+180)%360-(b+180)%360) <= offset;
+	}
 }

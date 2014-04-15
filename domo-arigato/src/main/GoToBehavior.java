@@ -74,5 +74,4 @@ public class GoToBehavior extends EventListener {
 			stop();
 		}
 	}
-	
 }
