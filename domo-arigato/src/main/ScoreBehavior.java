@@ -64,6 +64,9 @@ public class ScoreBehavior extends EventListener {
 				Field.getInstance().setPresent(puck, false);
 			}
 			
+			// remplacer ça par un boolean dans le constructeur ?
+			// le père choisis si le palet doit etre ramené en ligne droite ou arc ?
+			
 			if(myPose.getHeading()%360 >= 175 && myPose.getHeading()%360 <= 185) {
 				ActionFactory.arcMove(-90, -33, true);
 			}
@@ -72,6 +75,8 @@ public class ScoreBehavior extends EventListener {
 			}
 			else {
 				phase1 = false;
+				//palet ramassé pas sur un croisement
+				//replacer par une rotation en direction de l'embut (booleen pas tres utile)
 			}
 		}
 		else if(state == 1) {
