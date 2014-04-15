@@ -10,6 +10,7 @@ import robot.Robot;
 import robot.StartPosition;
 import tests.TestChildBehavior;
 import tests.TestDodgeBehavior;
+import tests.TestGoToBehavior;
 import tests.TestMusic;
 import tests.TestScore;
 
@@ -19,7 +20,8 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
-    	TestMusic behavior = new TestMusic();
+    	TestGoToBehavior behavior = new TestGoToBehavior();
+    	//TestMusic behavior = new TestMusic();
     	//TestDodgeBehavior behavior = new TestDodgeBehavior();
     	//TestScore behavior = new TestScore();
     	//TestChildBehavior behavior = new TestChildBehavior();
