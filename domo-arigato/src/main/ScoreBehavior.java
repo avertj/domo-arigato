@@ -52,6 +52,30 @@ public class ScoreBehavior extends EventListener {
 			else
 				ignore();
 			break;
+		case WAIT_END :
+			if(state == 0) {
+				state = 5;
+			}
+			else if(state == 5) {
+				state = 1;
+			}
+			else
+				ignore();
+			break;
+		case ROBOT_DETECTED :
+			if(state == 1) {
+				state = -1;
+			}
+			else
+				ignore();
+			break;
+		case CHILDBEHAVIOR_END :
+			if(state == -1) {
+				state = 1;
+			}
+			else
+				ignore();
+			break;
 		default :
 			ignore();
 			break;
@@ -60,8 +84,12 @@ public class ScoreBehavior extends EventListener {
 
 	@Override
 	protected void act() {
-		if(state == 0) {
+		if(state == -1) {
+			doBehavior(new DodgeBehavior());
+		}
+		else if(state == 0) {
 			//Remove puck from Field
+			ActionFactory.useClaws(0.0f, true);
 			Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 			Point frontPose = new Point((int)myPose.getX(), (int)myPose.getY());
 			frontPose.translate((int)Math.cos(myPose.getHeading()) * 8, (int)Math.sin(myPose.getHeading()) * 8);
@@ -80,8 +108,14 @@ public class ScoreBehavior extends EventListener {
 				ActionFactory.arcMove(90, 33, true);
 			}
 			else {
+				if(myPose.getHeading()%360 >= 85 && myPose.getHeading()%360 <= 95) {
+					ActionFactory.arcMove(-90, -33, true);
+					ActionFactory.wait(600, "", true);
+				}
+				else {
 				ActionFactory.rotate(new Pose(Robot.getInstance().getOdometryPoseProvider().getPose().getX(), 
 						Robot.getInstance().getOdometryPoseProvider().getPose().getY() + 100, 90), true);
+				}
 			}
 		}
 		else if(state == 1) {
@@ -96,6 +130,10 @@ public class ScoreBehavior extends EventListener {
 		}
 		else if(state == 4) {
 			stop();
+		}
+		else if(state == 5) {
+			ActionFactory.arcMove(90, 33, true);
+			ActionFactory.wait(600, "", true);
 		}
 	}
 

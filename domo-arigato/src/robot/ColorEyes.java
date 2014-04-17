@@ -14,6 +14,7 @@ public class ColorEyes {
 	public ColorHTSensor cs;
 	RunnableRobot thread;
 	I2CSensor sensor;
+	SensorPort eyes;
 	
 	LightSensor ls;
 	
@@ -22,6 +23,7 @@ public class ColorEyes {
 	}
 	
 	void initEyes(SensorPort eyes) {
+		this.eyes = eyes;
 		/*byte buf[] = new byte [1];
 		sensor = new I2CSensor(eyes, 0x02, I2CPort.STANDARD_MODE, I2CSensor.TYPE_LOWSPEED);
 		System.out.println(sensor.getData(0x42, buf, 1));
@@ -48,8 +50,13 @@ public class ColorEyes {
 
 	}
 	
+	public boolean onNoise() {
+		int read = eyes.readRawValue();
+		return ((read >= EyesRun.LOW_COLORS) && (read <= EyesRun.HIGH_COLORS));
+	}
+	
 	synchronized public int getLightValue() {
-		return ls.getLightValue();
+		return eyes.readRawValue();
 	}
 	
 	synchronized public lejos.robotics.Color getColor() {

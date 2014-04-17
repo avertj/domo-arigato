@@ -37,43 +37,7 @@ public class AlignementToBehavior extends EventListener {
 		case WHITE_DETECTED :
 			c = "White";
 		case COLOR_DETECTED :
-			Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
-			if(event.getName().equals("Low")) {
-				float[] distance = new float[2];
-				distance[0] = Math.abs(myPose.getX() - 50);
-				distance[1] = Math.abs(myPose.getX() + 50);
-				if(distance[0] < distance[1])
-					c = "Red";
-				else
-					c = "Yellow";
-			}
-			else if(event.getName().equals("High")) {
-				float[] distance = new float[4];
-				distance[0] = Math.abs(myPose.getX());
-				distance[1] = Math.abs(myPose.getY());
-				distance[2] = Math.abs(myPose.getY() - 60);
-				distance[3] = Math.abs(myPose.getY() + 60);
-				float min = distance[0];
-				int i = 0;
-				c = "BlackX";
-				for(i = 1; i < 4; i++) {
-					if(distance[i] < min) {
-						min = distance[i];
-						switch(i) {
-						case 1 :
-							c = "BlackY";
-							break;
-						case 2 :
-							c = "Blue";
-							break;
-						case 3 :
-							c = "Green";
-							break;
-						}
-					}
-				}
-			}
-			if(c.equals(color)) {
+			if(event.getName().equals(color)) {
 				if(state == 1) {
 					state = 2;
 				}

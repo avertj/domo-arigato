@@ -27,9 +27,10 @@ public class FollowLineBehavior extends EventListener {
 		switch(event.getTypeEvent())
 		{
 		case WHITE_DETECTED :
+		case COLOR_DETECTED :
 			state = 1;
 			break;
-		case BLACK_DETECTED :
+		case NOISE_DETECTED :
 			state = 2;
 			break;
 		case BUMP :
@@ -47,19 +48,7 @@ public class FollowLineBehavior extends EventListener {
 		}
 		else if(state == 0) {
 			// On cherche a savoir si on es bien sur une ligne.
-			Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
-			float h = myPose.getHeading();
-			float x = myPose.getX();
-			float y = myPose.getY();
-			if(!(((Geometry.barelyEqualsHeading(h, 0.0f, 2.0f) || Geometry.barelyEqualsHeading(h, 180.0f, 2.0f)) && (
-					Geometry.barelyEqualsCoord(Math.abs(y), 0.0f, 3.0f) || 
-					Geometry.barelyEqualsCoord(Math.abs(y), 60.0f, 3.0f) || 
-					Geometry.barelyEqualsCoord(Math.abs(y), 120.0f, 3.0f)))
-				|| 
-				((Geometry.barelyEqualsHeading(h, 90.0f, 2.0f) || Geometry.barelyEqualsHeading(h, 270.0f, 2.0f)) && (
-						Geometry.barelyEqualsCoord(Math.abs(x), 0.0f, 3.0f) || 
-						Geometry.barelyEqualsCoord(Math.abs(x), 50.0f, 3.0f)))
-					)) {
+			if(Robot.getInstance().getEyes().onNoise()) {
 				System.out.println("I am not along a line !!");
 				stop();
 			}
