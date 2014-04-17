@@ -51,7 +51,7 @@ public class NaiveStartBehavior extends EventListener {
 	protected void act() {
 		if(state == State.START) {
 			// on avance
-			ActionFactory.goForward(70, true);
+			ActionFactory.goForward(70.0f, true);
 		} else if(state == State.PLUCK_BUMPED) {
 			// on ferme les griffes
 			ActionFactory.useClaws(0.0f, true);

@@ -2,7 +2,7 @@ package tests;
 
 import lejos.robotics.navigation.Pose;
 import main.FollowLineBehavior;
-import main.FollowLineBehavior2;
+import main.FollowLineBehavior;
 import main.GoToBehavior;
 import robot.EventListener;
 import actions.Event;
@@ -24,7 +24,7 @@ public class TestFollowLineBehavior extends EventListener {
 
 	public void act() {
 		if(state == 0) {
-			doBehavior(new FollowLineBehavior2(60));
+			doBehavior(new FollowLineBehavior(60, true));
 		}
 		else if(state == 1) {
 			System.out.println("Fin");

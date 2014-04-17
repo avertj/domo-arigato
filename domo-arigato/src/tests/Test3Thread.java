@@ -2,7 +2,7 @@ package tests;
 
 import lejos.robotics.navigation.Pose;
 import main.AlignementBehavior;
-import main.FollowLineBehavior2;
+import main.FollowLineBehavior;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
@@ -34,7 +34,7 @@ public class Test3Thread extends EventListener {
 			doBehavior(new AlignementBehavior(false));
 		}
 		else if(state == 1) {
-			doBehavior(new FollowLineBehavior2(100));
+			doBehavior(new FollowLineBehavior(100, true));
 		}
 		else {
 			Geometry.adjustHeading();

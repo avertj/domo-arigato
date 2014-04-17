@@ -23,6 +23,7 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
     	
+    	NaiveStartBehavior behavior = new NaiveStartBehavior();
     	//CalibLight behavior = new CalibLight();
     	//TestFollowLineBehavior behavior = new TestFollowLineBehavior();
     	//TestGoToBehavior behavior = new TestGoToBehavior();
@@ -31,7 +32,7 @@ public class Main {
     	//TestScore behavior = new TestScore();
     	//TestChildBehavior behavior = new TestChildBehavior();
     	//Alignement behavior = new Alignement();
-    	Test3Thread behavior = new Test3Thread();
+    	//Test3Thread behavior = new Test3Thread();
     	//TestDodo behavior = new TestDodo();
     	//TrouverPalet behavior = new TrouverPalet();
     	//PousserPalet behavior=new PousserPalet();

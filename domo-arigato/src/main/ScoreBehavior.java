@@ -13,7 +13,6 @@ import utils.Geometry;
 
 public class ScoreBehavior extends EventListener {
 	private int state = 0;
-	private boolean phase1 = true;
 	@Override
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
@@ -46,6 +45,13 @@ public class ScoreBehavior extends EventListener {
 			else
 				ignore();
 			break;
+		case ROTATE_END :
+			if(state == 0) {
+				state = 1;
+			}
+			else
+				ignore();
+			break;
 		default :
 			ignore();
 			break;
@@ -74,9 +80,8 @@ public class ScoreBehavior extends EventListener {
 				ActionFactory.arcMove(90, 33, true);
 			}
 			else {
-				phase1 = false;
-				//palet ramassé pas sur un croisement
-				//replacer par une rotation en direction de l'embut (booleen pas tres utile)
+				ActionFactory.rotate(new Pose(Robot.getInstance().getOdometryPoseProvider().getPose().getX(), 
+						Robot.getInstance().getOdometryPoseProvider().getPose().getY() + 100, 90), true);
 			}
 		}
 		else if(state == 1) {
