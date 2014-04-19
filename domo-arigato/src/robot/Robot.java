@@ -17,7 +17,6 @@ public class Robot {
 	private Claws claws;
 	private Motion motion;
 	private EventListener eventListener;
-	private Thread brain;
 	private OdometryPoseProvider opp;
 	private ColorEyes eyes;
 	private Bumper bumper;
@@ -103,14 +102,12 @@ public class Robot {
 	 * @param eventListener The Behavior (state machine).
 	 */
 	public void changeEventListener(EventListener eventListener) {
-		if(brain != null && brain.isAlive()) {
-			brain.interrupt();
+		if(this.eventListener != null) {
 			this.eventListener.stop();
 		}
 		this.eventListener = eventListener;
 		if(eventListener != null) {
-			brain = new Thread(eventListener);
-			brain.start();
+			eventListener.doAct();
 		}
 	}
 	
@@ -125,9 +122,8 @@ public class Robot {
 			eyes.closeEyes();
 			sonar.closeSonar();
 		}
-		if(eventListener == null || brain == null)
+		if(eventListener == null)
 			return false;
-		//brain.interrupt();
 		eventListener.synchronizedWarn(event);
 		return true;
 	}

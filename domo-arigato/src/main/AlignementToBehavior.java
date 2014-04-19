@@ -104,7 +104,6 @@ public class AlignementToBehavior extends EventListener {
 		}
 		else if(state == 4) {
 			ActionFactory.stopMotion(false);
-			Geometry.adjustHeading();
 			stop();
 		}
 	}
