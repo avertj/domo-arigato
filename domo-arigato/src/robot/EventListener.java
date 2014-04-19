@@ -40,14 +40,16 @@ public abstract class EventListener implements Runnable {
 			childBehavior = null;
 		}
 		synchronized(lock) {
-			if(childBehavior != null) {
-				childBehavior.synchronizedWarn(event);
-			}
-			else {
-				warn(event);
-				if(!ignore)
-					act();
-				ignore = false;
+			if(!end) {
+				if(childBehavior != null) {
+					childBehavior.synchronizedWarn(event);
+				}
+				else {
+					warn(event);
+					if(!ignore)
+						act();
+					ignore = false;
+				}
 			}
 		}
 	}
@@ -67,11 +69,11 @@ public abstract class EventListener implements Runnable {
 	 * Call this method to end the infinite loop of the EventListener
 	 */
 	public void stop(String message) {
+		end = true;
 		if(fatherBehavior == null)
 			Robot.getInstance().changeEventListener(null);
 		else
 			fatherBehavior.synchronizedWarn(new Event(TypeEvent.CHILDBEHAVIOR_END, message));
-		end = true;
 	}
 	
 	protected void doBehavior(EventListener child) {

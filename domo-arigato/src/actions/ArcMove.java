@@ -13,8 +13,10 @@ class ArcMove extends RunnableRobot {
 		this.radius = radius;
 		this.forward = forward;
 		if(createThread) {
-			if(Robot.getInstance().getMotion().getRunnableRobot() != null)
+			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
+				System.out.println("ArcInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
+			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
 			Thread thread = new Thread(this);
 			thread.start();
@@ -28,8 +30,10 @@ class ArcMove extends RunnableRobot {
 		this.forward = false;
 		this.angle = angle;
 		if(createThread) {
-			if(Robot.getInstance().getMotion().getRunnableRobot() != null)
+			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
+				System.out.println("ArcInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
+			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
 			Thread thread = new Thread(this);
 			thread.start();
@@ -47,6 +51,7 @@ class ArcMove extends RunnableRobot {
 			Delay.msDelay(10000);
 			if(!getInterrupted()) {
 				Robot.getInstance().getMotion().getPilot().stop();
+				Robot.getInstance().getMotion().setRunnableRobot(null);
 				Robot.getInstance().warn(new Event(TypeEvent.ARC_END));
 			}
 			else
@@ -62,6 +67,7 @@ class ArcMove extends RunnableRobot {
 					break;
 			}
 			if(!getInterrupted()) {
+				Robot.getInstance().getMotion().setRunnableRobot(null);
 				Robot.getInstance().warn(new Event(TypeEvent.ARC_END));
 			}
 			else

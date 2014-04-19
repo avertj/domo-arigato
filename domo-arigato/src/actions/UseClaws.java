@@ -8,8 +8,10 @@ class UseClaws extends RunnableRobot {
 	UseClaws(float clawsState, boolean createThread) {
 		this.clawsState = clawsState;
 		if(createThread) {
-			if(Robot.getInstance().getClaws().getRunnableRobot() != null)
+			if(Robot.getInstance().getClaws().getRunnableRobot() != null) {
+				System.out.println("ClawsInter");
 				Robot.getInstance().getClaws().getRunnableRobot().interrupt();
+			}
 			Robot.getInstance().getClaws().setRunnableRobot(this);
 			Thread thread = new Thread(this);
 			thread.start();
@@ -21,6 +23,7 @@ class UseClaws extends RunnableRobot {
 	public void run() {
 		Robot.getInstance().getClaws().setState(clawsState, false);
 		if(!getInterrupted()) {
+			Robot.getInstance().getClaws().setRunnableRobot(null);
 			Robot.getInstance().warn(new Event(TypeEvent.USECLAWS_END));
 		}
 		else

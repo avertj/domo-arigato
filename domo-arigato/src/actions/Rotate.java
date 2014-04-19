@@ -12,8 +12,10 @@ class Rotate extends RunnableRobot {
 		pointCall = false;
 		this.angle = angle;
 		if(createThread) {
-			if(Robot.getInstance().getMotion().getRunnableRobot() != null)
+			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
+				System.out.println("RotateInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
+			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
 			Thread thread = new Thread(this);
 			thread.start();
@@ -26,8 +28,10 @@ class Rotate extends RunnableRobot {
 		pointCall = true;
 		this.pose = pose;
 		if(createThread) {
-			if(Robot.getInstance().getMotion().getRunnableRobot() != null)
+			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
+				System.out.println("RotateInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
+			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
 			Thread thread = new Thread(this);
 			thread.start();
@@ -49,6 +53,7 @@ class Rotate extends RunnableRobot {
 				break;
 		}
 		if(!getInterrupted()) {
+			Robot.getInstance().getMotion().setRunnableRobot(null);
 			Robot.getInstance().warn(new Event(TypeEvent.ROTATE_END));
 		}
 		else

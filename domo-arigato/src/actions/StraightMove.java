@@ -12,8 +12,10 @@ class StraightMove extends RunnableRobot {
 		this.pose = pose;
 		odo = Robot.getInstance().getOdometryPoseProvider();
 		if(createThread) {
-			if(Robot.getInstance().getMotion().getRunnableRobot() != null)
+			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
+				System.out.println("StraightInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
+			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
 			Thread thread = new Thread(this);
 			thread.start();
@@ -50,6 +52,7 @@ class StraightMove extends RunnableRobot {
 						break;
 				}
 				if(!getInterrupted()) {
+					Robot.getInstance().getMotion().setRunnableRobot(null);
 					Robot.getInstance().warn(new Event(TypeEvent.STRAIGHTMOVE_END));
 				}
 				else
