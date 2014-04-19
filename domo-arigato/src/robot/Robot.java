@@ -127,7 +127,7 @@ public class Robot {
 		}
 		if(eventListener == null || brain == null)
 			return false;
-		brain.interrupt();
+		//brain.interrupt();
 		eventListener.synchronizedWarn(event);
 		return true;
 	}

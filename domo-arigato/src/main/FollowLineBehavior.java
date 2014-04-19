@@ -49,28 +49,25 @@ public class FollowLineBehavior extends EventListener {
 		else if(state == 0) {
 			// On cherche a savoir si on es bien sur une ligne.
 			if(Robot.getInstance().getEyes().onNoise()) {
-				System.out.println("I am not along a line !!");
-				stop();
+				stop("I am not along a line !!");
 			}
 			else {
 				Robot.getInstance().getMotion().getPilot().arcForward(-radiusCalibration * left);
 			}
 		}
 		else if(state == 1) {
-			Robot.getInstance().getMotion().getPilot().arcForward(radiusCalibration * left);
+			Robot.getInstance().getMotion().getPilot().arcForward(-radiusCalibration * left);
 			if(Robot.getInstance().getOdometryPoseProvider().getPose().distanceTo(start.getLocation()) > distance) {
 				ActionFactory.stopMotion(true);
-				stop();
-				System.out.println("fin");
+				stop("End");
 			}
 				
 		}
 		else if(state == 2) {
-			Robot.getInstance().getMotion().getPilot().arcForward(-radiusCalibration * left);
+			Robot.getInstance().getMotion().getPilot().arcForward(radiusCalibration * left);
 			if(Robot.getInstance().getOdometryPoseProvider().getPose().distanceTo(start.getLocation()) > distance) {
 				ActionFactory.stopMotion(true);
-				stop();
-				System.out.println("fin");
+				stop("End");
 			}
 		}
 		else if(state == 3) {

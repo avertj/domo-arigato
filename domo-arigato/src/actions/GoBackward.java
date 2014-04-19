@@ -58,12 +58,17 @@ class GoBackward extends RunnableRobot {
 					break;
 			}
 			if(!getInterrupted()) {
-				if(!neg)
+				if(!neg) {
 					Robot.getInstance().warn(new Event(TypeEvent.GOBACKWARD_END));
-				else
+					System.out.println("BackEnd");
+				}
+				else {
 					Robot.getInstance().warn(new Event(TypeEvent.GOFORWARD_END));
+					System.out.println("BackEndNeg");
+				}
 			}
 			else {
+				System.out.println("BackInterrupted");
 				if(!neg)
 					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOBACKWARD_END.toString()));
 				else

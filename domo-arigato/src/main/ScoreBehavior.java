@@ -80,6 +80,7 @@ public class ScoreBehavior extends EventListener {
 			ignore();
 			break;
 		}
+		//System.out.println("Fin warn : "+state);
 	}
 
 	@Override
@@ -110,7 +111,7 @@ public class ScoreBehavior extends EventListener {
 			else {
 				if(myPose.getHeading()%360 >= 85 && myPose.getHeading()%360 <= 95) {
 					ActionFactory.arcMove(-90, -33, true);
-					ActionFactory.wait(600, "", true);
+					ActionFactory.wait(1000, "", true);
 				}
 				else {
 				ActionFactory.rotate(new Pose(Robot.getInstance().getOdometryPoseProvider().getPose().getX(), 
@@ -119,6 +120,7 @@ public class ScoreBehavior extends EventListener {
 			}
 		}
 		else if(state == 1) {
+			System.out.println("Heading : " + Robot.getInstance().getOdometryPoseProvider().getPose().getHeading());
 			ActionFactory.goForward(10000, true);
 		}
 		else if(state == 2) {
@@ -126,15 +128,18 @@ public class ScoreBehavior extends EventListener {
 			ActionFactory.useClaws(1.0f, true);
 		}
 		else if(state == 3) {
+			System.out.println("Back");
 			ActionFactory.goBackward(10.0f, true);
 		}
 		else if(state == 4) {
+			System.out.println("state4");
 			stop();
 		}
 		else if(state == 5) {
 			ActionFactory.arcMove(90, 33, true);
-			ActionFactory.wait(600, "", true);
+			ActionFactory.wait(1000, "", true);
 		}
+		//System.out.println("Fin act : "+state);
 	}
 
 }

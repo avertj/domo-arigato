@@ -21,7 +21,7 @@ public class SonarRun extends RunnableRobot {
 	public void run() {
 		while(!getInterrupted()) {
 			Delay.msDelay(DELAY);
-			float min = sonar.getMinDist();
+			/*float min = sonar.getMinDist();
 			if(min > 220 && distances.size() > 0) {
 				distances.add(distances.get(distances.size() - 1));
 			}
@@ -40,7 +40,7 @@ public class SonarRun extends RunnableRobot {
 					Robot.getInstance().warn(new Event(TypeEvent.END_ROBOT_DETECTED));
 				}
 				lastMinDist = min;
-			}
+			}*/
 		}
 	}
 }

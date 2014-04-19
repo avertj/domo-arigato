@@ -1,5 +1,6 @@
 package robot;
 
+import utils.Geometry;
 import lejos.nxt.SensorPort;
 import lejos.robotics.navigation.Pose;
 import lejos.util.Delay;
@@ -12,9 +13,9 @@ public class EyesRun extends RunnableRobot {
 	SensorPort port;
 	lejos.robotics.Color color;
 	int lightValue;
-	int WHITE = 430;
-	public static final int LOW_COLORS = 480;
-	public static final int HIGH_COLORS = 600;
+	int WHITE = 465;
+	public static final int LOW_COLORS = 520;
+	public static final int HIGH_COLORS = 605;
 	int prev;
 	int state;
 	
@@ -50,6 +51,7 @@ public class EyesRun extends RunnableRobot {
 				{
 				case 0 :
 					e = new Event(TypeEvent.WHITE_DETECTED);
+					Geometry.adjustY();
 					break;
 				case 1 :
 					distance = new float[2];
@@ -60,6 +62,7 @@ public class EyesRun extends RunnableRobot {
 					else
 						c = "Yellow";
 					e = new Event(TypeEvent.COLOR_DETECTED, c);
+					Geometry.adjustX();
 					break;
 				case 2 :
 					distance = new float[4];
@@ -86,6 +89,12 @@ public class EyesRun extends RunnableRobot {
 							}
 						}
 					}
+					/*if(c.equals("BlackY"))
+						System.out.println("LIGNE NOIRE");*/
+					if(min == distance[0])
+						Geometry.adjustX();
+					else
+						Geometry.adjustY();
 					e = new Event(TypeEvent.COLOR_DETECTED, c);
 					break;
 				default :

@@ -73,24 +73,24 @@ public class Geometry {
 		float heading = myPose.getHeading();
 		if(Geometry.barelyEqualsHeading(heading, 0, 45)) {
 			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 0));
-			adjustX();
+			adjustY();
 		}
 		else if(Geometry.barelyEqualsHeading(heading, 90, 45)) {
 			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 90));
-			adjustY();
+			adjustX();
 		}
 		else if(Geometry.barelyEqualsHeading(heading, 180, 45)) {
 			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 180));
-			adjustX();
+			adjustY();
 		}
 		else if(Geometry.barelyEqualsHeading(heading, 270, 45)) {
 			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 270));
-			adjustY();
+			adjustX();
 		}
 	}
 	
 	public static void adjustX() {
-		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		/*Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		float offset = (float) (12.5*Math.cos(myPose.getHeading()*Math.PI/180));
 		float[] distances = new float[3];
 		distances[0] = Math.abs(myPose.getX() + 50);
@@ -115,11 +115,11 @@ public class Geometry {
 		case 2 :
 			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(50 - offset, myPose.getY(), myPose.getHeading()));
 			break;
-		}
+		}*/
 	}
 	
 	public static void adjustY() {
-		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		/*Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		float offset = (float) (12.5*Math.sin(myPose.getHeading()*Math.PI/180));
 		float[] distances = new float[5];
 		distances[0] = Math.abs(myPose.getX() + 120);
@@ -152,6 +152,6 @@ public class Geometry {
 		case 4 :
 			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), 120 - offset, myPose.getHeading()));
 			break;
-		}
+		}*/
 	}
 }

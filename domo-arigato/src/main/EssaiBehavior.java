@@ -4,6 +4,7 @@ import lejos.robotics.navigation.Pose;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
+import robot.Robot;
 
 public class EssaiBehavior extends EventListener {
 	private enum State {
@@ -19,6 +20,7 @@ public class EssaiBehavior extends EventListener {
 				state = State.PLUCK_BUMPED;
 			}
 			else if(state == State.PLUCK_BUMPED) {
+				System.out.println("Warn = SCORED");
 				state = State.SCORED;
 			}
 			else if(state == State.SCORED) {
@@ -28,7 +30,7 @@ public class EssaiBehavior extends EventListener {
 				state = State.PLUCK_BUMPED2;
 			}
 			else if(state == State.PLUCK_BUMPED2) {
-				state = State.SCORED2;
+				state = State.SCORED;
 			}
 			else
 				ignore();
@@ -46,7 +48,7 @@ public class EssaiBehavior extends EventListener {
 		} else if(state == State.PLUCK_BUMPED) {
 			doBehavior(new ScoreBehavior());
 		} else if(state == State.SCORED) {
-			doBehavior(new AlignementToBehavior(new Pose(75, 0, 0), false, "BlackY"));
+			doBehavior(new AlignementToBehavior(new Pose(90, 0, 0), false, "BlackY"));
 		} else if(state == State.ONLINE) {
 			doBehavior(new FollowLineBehavior(150, true));
 		} else if(state == State.PLUCK_BUMPED2) {
@@ -55,5 +57,4 @@ public class EssaiBehavior extends EventListener {
 			stop();
 		}
 	}
-
 }

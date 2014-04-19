@@ -62,6 +62,7 @@ public class AlignementToBehavior extends EventListener {
 			}
 			else
 				ignore();
+			break;
 		case ROBOT_DETECTED :
 			if(state == 1)
 				state = -1;

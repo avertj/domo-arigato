@@ -9,6 +9,7 @@ import lejos.nxt.SensorPort;
 import robot.Robot;
 import robot.StartPosition;
 import tests.CalibLight;
+import tests.CalibLightLine;
 import tests.Test3Thread;
 import tests.TestChildBehavior;
 import tests.TestDodgeBehavior;
@@ -21,8 +22,9 @@ public class Main {
     public static void main(String[] args) {
     	Robot robot = Robot.getInstance();
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
-    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.middle);
+    	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.right);
     	
+    	//CalibLightLine behavior = new CalibLightLine();
     	EssaiBehavior behavior = new EssaiBehavior();
     	//NaiveStartBehavior behavior = new NaiveStartBehavior();
     	//CalibLight behavior = new CalibLight();
