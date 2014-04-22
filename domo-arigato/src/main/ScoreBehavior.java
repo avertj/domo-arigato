@@ -101,15 +101,17 @@ public class ScoreBehavior extends EventListener {
 			
 			// remplacer ça par un boolean dans le constructeur ?
 			// le père choisis si le palet doit etre ramené en ligne droite ou arc ?
-			
-			if(myPose.getHeading()%360 >= 175 && myPose.getHeading()%360 <= 185) {
+			int heading = ((int) myPose.getHeading())%360;
+			if(heading < 0)
+				heading += 360;
+			if(heading >= 175 && heading <= 185) {
 				ActionFactory.arcMove(-90, -33, true);
 			}
-			else if(myPose.getHeading()%360 >= 355 && myPose.getHeading()%360 <= 5) {
+			else if(heading >= 355 || heading <= 5) {
 				ActionFactory.arcMove(90, 33, true);
 			}
 			else {
-				if(myPose.getHeading()%360 >= 85 && myPose.getHeading()%360 <= 95) {
+				if(heading >= 85 && heading <= 95) {
 					ActionFactory.arcMove(-90, -33, true);
 					ActionFactory.wait(1000, "", true);
 				}
@@ -120,7 +122,6 @@ public class ScoreBehavior extends EventListener {
 			}
 		}
 		else if(state == 1) {
-			System.out.println("Heading : " + Robot.getInstance().getOdometryPoseProvider().getPose().getHeading());
 			ActionFactory.goForward(10000, true);
 		}
 		else if(state == 2) {
@@ -128,11 +129,9 @@ public class ScoreBehavior extends EventListener {
 			ActionFactory.useClaws(1.0f, true);
 		}
 		else if(state == 3) {
-			System.out.println("Back");
 			ActionFactory.goBackward(10.0f, true);
 		}
 		else if(state == 4) {
-			System.out.println("state4");
 			stop();
 		}
 		else if(state == 5) {

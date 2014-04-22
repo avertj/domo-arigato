@@ -14,7 +14,6 @@ class StopMotion extends RunnableRobot {
 	}
 	
 	public void run() {
-		System.out.println("StopInter");
 		if(Robot.getInstance().getMotion().getRunnableRobot() != null)
 			Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 		Robot.getInstance().getMotion().setRunnableRobot(null);

@@ -4,7 +4,6 @@ import actions.Event;
 import actions.TypeEvent;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
-import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.navigation.Pose;
 
 /**
@@ -17,7 +16,7 @@ public class Robot {
 	private Claws claws;
 	private Motion motion;
 	private EventListener eventListener;
-	private OdometryPoseProvider opp;
+	private MyOdometryPoseProvider opp;
 	private ColorEyes eyes;
 	private Bumper bumper;
 	
@@ -44,7 +43,7 @@ public class Robot {
 	public void initMotors(NXTRegulatedMotor leftWheel, NXTRegulatedMotor rightWheel, NXTRegulatedMotor claws, StartPosition position) {
 		this.claws.setClawsMotor(claws);
 		this.motion.setWheelMotors(leftWheel, rightWheel);
-		opp = new OdometryPoseProvider(motion.getPilot());
+		opp = new MyOdometryPoseProvider(motion.getPilot());
 		Pose pose;
 		switch(position)
 		{
@@ -61,7 +60,7 @@ public class Robot {
 		opp.setPose(pose);
 	}
 	
-	public OdometryPoseProvider getOdometryPoseProvider() {
+	public MyOdometryPoseProvider getOdometryPoseProvider() {
 		return opp;
 	}
 	

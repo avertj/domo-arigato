@@ -58,7 +58,7 @@ public class DodgeBehavior extends EventListener {
 	protected void act() {
 		if(state == 0) {
 			ActionFactory.stopMotion(true);
-			ActionFactory.wait(3000, "Dodge", true);
+			ActionFactory.wait(6000, "Dodge", true);
 		}
 		else if(state == 1) {
 			if(Robot.getInstance().getClaws().getState()==1.0f)

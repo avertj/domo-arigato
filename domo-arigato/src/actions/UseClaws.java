@@ -9,7 +9,6 @@ class UseClaws extends RunnableRobot {
 		this.clawsState = clawsState;
 		if(createThread) {
 			if(Robot.getInstance().getClaws().getRunnableRobot() != null) {
-				System.out.println("ClawsInter");
 				Robot.getInstance().getClaws().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getClaws().setRunnableRobot(this);

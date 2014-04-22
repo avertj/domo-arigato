@@ -13,9 +13,9 @@ public class EyesRun extends RunnableRobot {
 	SensorPort port;
 	lejos.robotics.Color color;
 	int lightValue;
-	int WHITE = 465;
+	int WHITE = 445;
 	public static final int LOW_COLORS = 520;
-	public static final int HIGH_COLORS = 605;
+	public static final int HIGH_COLORS = 595;
 	int prev;
 	int state;
 	
@@ -51,7 +51,7 @@ public class EyesRun extends RunnableRobot {
 				{
 				case 0 :
 					e = new Event(TypeEvent.WHITE_DETECTED);
-					Geometry.adjustY();
+					Geometry.adjustYWhite();
 					break;
 				case 1 :
 					distance = new float[2];
@@ -62,7 +62,7 @@ public class EyesRun extends RunnableRobot {
 					else
 						c = "Yellow";
 					e = new Event(TypeEvent.COLOR_DETECTED, c);
-					Geometry.adjustX();
+					;//Geometry.adjustX();
 					break;
 				case 2 :
 					distance = new float[4];
@@ -89,10 +89,8 @@ public class EyesRun extends RunnableRobot {
 							}
 						}
 					}
-					/*if(c.equals("BlackY"))
-						System.out.println("LIGNE NOIRE");*/
-					if(min == distance[0])
-						Geometry.adjustX();
+					if(c.equals("BlackX"))
+						;//Geometry.adjustX();
 					else
 						Geometry.adjustY();
 					e = new Event(TypeEvent.COLOR_DETECTED, c);

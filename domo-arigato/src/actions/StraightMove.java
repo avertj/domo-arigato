@@ -1,19 +1,18 @@
 package actions;
 
-import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.navigation.Pose;
+import robot.MyOdometryPoseProvider;
 import robot.Robot;
 
 class StraightMove extends RunnableRobot {
 	private Pose pose;
-	private OdometryPoseProvider odo;
+	private MyOdometryPoseProvider odo;
 	
 	StraightMove(Pose pose, boolean createThread) {
 		this.pose = pose;
 		odo = Robot.getInstance().getOdometryPoseProvider();
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("StraightInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);

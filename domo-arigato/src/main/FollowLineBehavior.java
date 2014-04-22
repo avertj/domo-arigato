@@ -74,6 +74,7 @@ public class FollowLineBehavior extends EventListener {
 		}
 		else if(state == 3) {
 			Geometry.adjustHeading();
+			Geometry.adjustXBump();
 			stop("BUMP");
 		}
 	}

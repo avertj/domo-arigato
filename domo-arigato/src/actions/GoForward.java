@@ -12,7 +12,6 @@ class GoForward extends RunnableRobot {
 		this.duration = duration;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("ForInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
@@ -29,7 +28,6 @@ class GoForward extends RunnableRobot {
 		this.distance = distance;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("ForInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);

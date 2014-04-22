@@ -14,7 +14,6 @@ class ArcMove extends RunnableRobot {
 		this.forward = forward;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("ArcInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
@@ -31,7 +30,6 @@ class ArcMove extends RunnableRobot {
 		this.angle = angle;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("ArcInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);

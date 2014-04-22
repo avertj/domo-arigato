@@ -12,7 +12,7 @@ public class AlignementToBehavior extends EventListener {
 	float offset = 0.0f;
 	private int left;
 	private Pose goal;
-	private float initRotateSpeed;
+	private double initRotateSpeed;
 	private String color;
 	
 	/**
@@ -86,13 +86,14 @@ public class AlignementToBehavior extends EventListener {
 			doBehavior(new DodgeBehavior());
 		}
 		if(state == 0) {
-			Robot.getInstance().getMotion().getPilot().setRotateSpeed(90);
 			ActionFactory.rotate(goal, true);
 		}
 		else if(state == 1) {
 			ActionFactory.goForward(10000, true);
 		}
 		else if(state == 2) {
+			initRotateSpeed = Robot.getInstance().getMotion().getPilot().getRotateSpeed();
+			Robot.getInstance().getMotion().getPilot().setRotateSpeed(65);
 			Pose pose = Robot.getInstance().getOdometryPoseProvider().getPose();
 			ActionFactory.stopMotion(false);
 			Pose nouvellePose = Robot.getInstance().getOdometryPoseProvider().getPose();
@@ -104,6 +105,7 @@ public class AlignementToBehavior extends EventListener {
 		}
 		else if(state == 4) {
 			ActionFactory.stopMotion(false);
+			Robot.getInstance().getMotion().getPilot().setRotateSpeed(initRotateSpeed);
 			stop();
 		}
 	}

@@ -13,7 +13,6 @@ class Rotate extends RunnableRobot {
 		this.angle = angle;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("RotateInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
@@ -29,7 +28,6 @@ class Rotate extends RunnableRobot {
 		this.pose = pose;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("RotateInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);

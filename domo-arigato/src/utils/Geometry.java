@@ -59,10 +59,17 @@ public class Geometry {
 	 * @return true if they are barely equals.
 	 */
 	public static boolean barelyEqualsHeading(float a, float b, float offset) {
-		if(a%360 > 90 && a%360 < 270)
-			return Math.abs(a%360-b%360) <= offset;
-		else
-			return Math.abs((a+180)%360-(b+180)%360) <= offset;
+		if(a < 0)
+			a += 360;
+		if(b < 0)
+			b += 360;
+		if(a > 90 && a < 270)
+			return Math.abs(a-b) <= offset;
+		else {
+			a = (a+180)%360;
+			b = (b+180)%360;
+			return Math.abs(a-b) <= offset;
+		}
 	}
 	
 	/**
@@ -72,30 +79,30 @@ public class Geometry {
 		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		float heading = myPose.getHeading();
 		if(Geometry.barelyEqualsHeading(heading, 0, 45)) {
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 0));
+			Robot.getInstance().getOdometryPoseProvider().setHeading(0);
 			adjustY();
 		}
 		else if(Geometry.barelyEqualsHeading(heading, 90, 45)) {
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 90));
+			Robot.getInstance().getOdometryPoseProvider().setHeading(90);
 			adjustX();
 		}
 		else if(Geometry.barelyEqualsHeading(heading, 180, 45)) {
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 180));
+			Robot.getInstance().getOdometryPoseProvider().setHeading(180);
 			adjustY();
 		}
 		else if(Geometry.barelyEqualsHeading(heading, 270, 45)) {
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), myPose.getY(), 270));
+			Robot.getInstance().getOdometryPoseProvider().setHeading(270);
 			adjustX();
 		}
 	}
 	
-	public static void adjustX() {
-		/*Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
-		float offset = (float) (12.5*Math.cos(myPose.getHeading()*Math.PI/180));
+	public static void adjustX() {/*
+		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		float offset = (float) (8.5*Math.cos(myPose.getHeading()*Math.PI/180));
 		float[] distances = new float[3];
-		distances[0] = Math.abs(myPose.getX() + 50);
-		distances[1] = Math.abs(myPose.getX());
-		distances[2] = Math.abs(myPose.getX() - 50);
+		distances[0] = Math.abs(myPose.getX() + offset + 50);
+		distances[1] = Math.abs(myPose.getX() + offset);
+		distances[2] = Math.abs(myPose.getX() + offset - 50);
 		float val = distances[0];
 		int min = 0;
 		for(int i = 1; i < 3; i++) {
@@ -118,15 +125,44 @@ public class Geometry {
 		}*/
 	}
 	
+	public static void adjustXBump() {
+		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		float offset = (float) (12.5*Math.cos(myPose.getHeading()*Math.PI/180));
+		float[] distances = new float[3];
+		distances[0] = Math.abs(myPose.getX() + offset + 50);
+		distances[1] = Math.abs(myPose.getX() + offset);
+		distances[2] = Math.abs(myPose.getX() + offset - 50);
+		float val = distances[0];
+		int min = 0;
+		for(int i = 1; i < 3; i++) {
+			if(distances[i] < val) {
+				min = i;
+				val = distances[i];
+			}
+		}
+		switch(min)
+		{
+		case 0 :
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(-50 - offset, myPose.getY(), myPose.getHeading()));
+			break;
+		case 1 :
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(-offset, myPose.getY(), myPose.getHeading()));
+			break;
+		case 2 :
+			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(50 - offset, myPose.getY(), myPose.getHeading()));
+			break;
+		}
+	}
+	
 	public static void adjustY() {
-		/*Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
-		float offset = (float) (12.5*Math.sin(myPose.getHeading()*Math.PI/180));
+		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		float offset = (float) (8.5*Math.sin(myPose.getHeading()*Math.PI/180));
 		float[] distances = new float[5];
-		distances[0] = Math.abs(myPose.getX() + 120);
-		distances[1] = Math.abs(myPose.getX() + 60);
-		distances[2] = Math.abs(myPose.getX());
-		distances[3] = Math.abs(myPose.getX() - 60);
-		distances[4] = Math.abs(myPose.getX() - 120);
+		distances[0] = Math.abs(myPose.getY() + offset + 120);
+		distances[1] = Math.abs(myPose.getY() + offset + 60);
+		distances[2] = Math.abs(myPose.getY() + offset);
+		distances[3] = Math.abs(myPose.getY() + offset - 60);
+		distances[4] = Math.abs(myPose.getY() + offset - 120);
 		float val = distances[0];
 		int min = 0;
 		for(int i = 1; i < 5; i++) {
@@ -138,20 +174,30 @@ public class Geometry {
 		switch(min)
 		{
 		case 0 :
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), -120 - offset, myPose.getHeading()));
+			Robot.getInstance().getOdometryPoseProvider().setY(-120 - offset);
 			break;
 		case 1 :
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), -60 - offset, myPose.getHeading()));
+			Robot.getInstance().getOdometryPoseProvider().setY(-60 - offset);
 			break;
 		case 2 :
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), -offset, myPose.getHeading()));
+			Robot.getInstance().getOdometryPoseProvider().setY(-offset);
 			break;
 		case 3 :
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), 60 - offset, myPose.getHeading()));
+			Robot.getInstance().getOdometryPoseProvider().setY(60 - offset);
 			break;
 		case 4 :
-			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(myPose.getX(), 120 - offset, myPose.getHeading()));
+			Robot.getInstance().getOdometryPoseProvider().setY(120 - offset);
 			break;
-		}*/
+		}
+		System.out.println("H = " + Robot.getInstance().getOdometryPoseProvider().getPose().getHeading());
+	}
+
+	public static void adjustYWhite() {
+		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		float offset = (float) (8.5*Math.sin(myPose.getHeading()*Math.PI/180));
+		if(Robot.getInstance().getOdometryPoseProvider().getPose().getY() > offset)
+			Robot.getInstance().getOdometryPoseProvider().setY(120 - offset);
+		else
+			Robot.getInstance().getOdometryPoseProvider().setY(-120 - offset);
 	}
 }

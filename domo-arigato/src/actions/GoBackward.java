@@ -12,7 +12,6 @@ class GoBackward extends RunnableRobot {
 		this.duration = duration;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("BackInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
@@ -29,7 +28,6 @@ class GoBackward extends RunnableRobot {
 		this.distance = distance;
 		if(createThread) {
 			if(Robot.getInstance().getMotion().getRunnableRobot() != null) {
-				System.out.println("BackInter");
 				Robot.getInstance().getMotion().getRunnableRobot().interrupt();
 			}
 			Robot.getInstance().getMotion().setRunnableRobot(this);
@@ -66,15 +64,12 @@ class GoBackward extends RunnableRobot {
 				Robot.getInstance().getMotion().setRunnableRobot(null);
 				if(!neg) {
 					Robot.getInstance().warn(new Event(TypeEvent.GOBACKWARD_END));
-					System.out.println("BackEnd");
 				}
 				else {
 					Robot.getInstance().warn(new Event(TypeEvent.GOFORWARD_END));
-					System.out.println("BackEndNeg");
 				}
 			}
 			else {
-				System.out.println("BackInterrupted");
 				if(!neg)
 					Robot.getInstance().warn(new Event(TypeEvent.INTERRUPTED, TypeEvent.GOBACKWARD_END.toString()));
 				else
