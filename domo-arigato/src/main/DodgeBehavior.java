@@ -109,4 +109,18 @@ public class DodgeBehavior extends EventListener {
 		if(state == 5)
 			stop();
 	}
+	
+	private boolean frontOfWall()
+	{
+		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
+		if(myPose.getX() > 60 && myPose.getHeading()%360 < 145)
+			return true;
+		else if(myPose.getX() < -60 && (myPose.getHeading()-180)%360 < 145)
+			return true;
+		else if(myPose.getY() < -120 && (myPose.getHeading()-180)%360 < 55)
+			return true;
+		else if(myPose.getY() > 120 && myPose.getHeading()%360 < 55)
+			return true;
+		return false;
+	}
 }
