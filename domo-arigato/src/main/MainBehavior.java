@@ -48,7 +48,17 @@ public class MainBehavior extends EventListener {
 				else
 				{
 					if(field.isPresent(EnumPuck.E) || field.isPresent(EnumPuck.M) || field.isPresent(EnumPuck.W))
-						state = State.GET_MIDDLE_PUCK;
+					{
+						pose = Robot.getInstance().getOdometryPoseProvider().getPose();
+						if(pose.getX()>-50 && pose.getX()<50)
+							state = State.GET_MIDDLE_PUCK;
+						else
+						{	//demi tour
+							ActionFactory.rotate(180, false);
+							state = State.GET_MIDDLE_PUCK;
+							sensAlignement=!sensAlignement;
+						}
+					}
 					else
 					{
 						state = State.GO_TO_HIGH;
@@ -79,7 +89,17 @@ public class MainBehavior extends EventListener {
 					state = State.SCORE_HIGH_PUCK;
 				else{
 					if(field.isPresent(EnumPuck.S) || field.isPresent(EnumPuck.SE) || field.isPresent(EnumPuck.SW))
-						state = State.GET_HIGH_PUCK;
+					{
+						pose = Robot.getInstance().getOdometryPoseProvider().getPose();
+						if(pose.getX()>-50 && pose.getX()<50)
+							state = State.GET_HIGH_PUCK;
+						else
+						{	//demi tour
+							ActionFactory.rotate(180, false);
+							state = State.GET_HIGH_PUCK;
+							sensAlignement=!sensAlignement;
+						}
+					}
 					else
 					{
 						if(field.isPresent(EnumPuck.N) || field.isPresent(EnumPuck.NE) || field.isPresent(EnumPuck.NW))
@@ -97,7 +117,17 @@ public class MainBehavior extends EventListener {
 					state = State.SCORE_LOW_PUCK;
 				else{
 					if(field.isPresent(EnumPuck.N) || field.isPresent(EnumPuck.NE) || field.isPresent(EnumPuck.NW))
-						state = State.GET_LOW_PUCK;
+					{
+						pose = Robot.getInstance().getOdometryPoseProvider().getPose();
+						if(pose.getX()>-50 && pose.getX()<50)
+							state = State.GET_LOW_PUCK;
+						else
+						{	//demi tour
+							ActionFactory.rotate(180, false);
+							state = State.GET_LOW_PUCK;
+							sensAlignement=!sensAlignement;
+						}
+					}
 					else
 					{
 						if(field.isPresent(EnumPuck.S) || field.isPresent(EnumPuck.SE) || field.isPresent(EnumPuck.SW))
