@@ -1,5 +1,6 @@
 package main;
 
+import field.Field;
 import actions.ActionFactory;
 import actions.Event;
 import actions.TypeEvent;
@@ -44,5 +45,11 @@ public class Main {
     	Button.ENTER.waitForPressAndRelease();
     	ActionFactory.useClaws(1.0f, false);
     	robot.warn(new Event(TypeEvent.SHUTDOWN));
+		System.out.println("");
+    	for(int i = 0; i < 9; ++i) {
+    		if(!Field.getInstance().isPresent(Field.getInstance().getPuck(i)))
+    			System.out.print("N");
+    		System.out.print("P"+i+" ");
+    	}
     }
 }

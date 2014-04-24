@@ -12,7 +12,7 @@ import actions.TypeEvent;
 public class SonarRun extends RunnableRobot {
 	private Sonar sonar;
 	private static final int DELAY = 10;
-	private static final int WALL_DETECTION = 40;
+	private static final int WALL_DETECTION = 45;
 	private float lastMinDist = 60.0f;
 	private ArrayList<Float> distances = new ArrayList<Float>();
 	private boolean wall;
@@ -44,7 +44,14 @@ public class SonarRun extends RunnableRobot {
 					if(h < 0)
 						h += 360;
 					float y = pose.getY();
-					if((Math.abs(150 - y) < WALL_DETECTION && (h > 20 && h < 160))) {
+					float x = pose.getX();
+					if(y > 150 - WALL_DETECTION && (h > 20 && h < 160)) {
+						wall = true;
+					}
+					else if(x > 100 - WALL_DETECTION && (h > 310 || h < 50)) {
+						wall = true;
+					}
+					else if(x < -100 + WALL_DETECTION && (h > 130 && h < 230)) {
 						wall = true;
 					}
 					else
