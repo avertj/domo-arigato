@@ -44,7 +44,7 @@ public class SonarRun extends RunnableRobot {
 					if(h < 0)
 						h += 360;
 					float y = pose.getY();
-					if((Math.abs(150 - y) < WALL_DETECTION && (h > 30 && h < 120))) {
+					if((Math.abs(150 - y) < WALL_DETECTION && (h > 20 && h < 160))) {
 						wall = true;
 					}
 					else

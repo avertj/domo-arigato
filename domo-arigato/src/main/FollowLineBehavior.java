@@ -26,6 +26,12 @@ public class FollowLineBehavior extends EventListener {
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
+		case ROBOT_DETECTED :
+			if(state > -1)
+				state = -1;
+			else
+				ignore();
+			break;
 		case WHITE_DETECTED :
 		case COLOR_DETECTED :
 			state = 1;
@@ -36,6 +42,12 @@ public class FollowLineBehavior extends EventListener {
 		case BUMP :
 			state = 3;
 			break;
+		case CHILDBEHAVIOR_END :
+			if(state == -1)
+				state = 0;
+			else
+				ignore();
+			break;
 		default:
 			ignore();
 			break;
@@ -44,7 +56,7 @@ public class FollowLineBehavior extends EventListener {
 
 	protected void act() {
 		if(state == -1) {
-			doBehavior(new DodgeBehavior()); //Pas encore géré, c'est a faire.
+			doBehavior(new WaitMoveBehavior()); //Pas encore géré, c'est a faire.
 		}
 		else if(state == 0) {
 			// On cherche a savoir si on es bien sur une ligne.

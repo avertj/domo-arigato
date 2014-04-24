@@ -7,11 +7,11 @@ import robot.Robot;
 import lejos.robotics.navigation.Pose;
 import music.BipRobot;
 
-public class DodgeBehavior extends EventListener {
+public class WaitMoveBehavior extends EventListener {
 	int state = 0;
 	int nbDetectionRobot = 0;
 	float distEnnemie;
-	boolean clawsOpen;
+	boolean clawsOpen = false;
 	boolean left = false;
 	
 	public void warn(Event event) {
@@ -21,7 +21,7 @@ public class DodgeBehavior extends EventListener {
 			if(state == 0)
 				state = 5;
 			else if(state == 1)
-				state = 4;
+				state = 5;
 			else
 				ignore();
 			break;
@@ -40,6 +40,8 @@ public class DodgeBehavior extends EventListener {
 		case ROTATE_END :
 			if(state == 2)
 				state = 3;
+			else if(state == 4)
+				state = 5;
 			else
 				ignore();
 			break;
@@ -58,7 +60,7 @@ public class DodgeBehavior extends EventListener {
 	protected void act() {
 		if(state == 0) {
 			ActionFactory.stopMotion(true);
-			ActionFactory.wait(6000, "Dodge", true);
+			ActionFactory.wait(30000, "Dodge", true);
 		}
 		else if(state == 1) {
 			if(Robot.getInstance().getClaws().getState()==1.0f)
@@ -75,7 +77,7 @@ public class DodgeBehavior extends EventListener {
 			//on s'approche à 10cm du robot adverse
 			distEnnemie = Robot.getInstance().getSonar().getMinDist();
 			System.out.println(distEnnemie);
-			ActionFactory.goForward(distEnnemie - 20, true);
+			ActionFactory.goForward(distEnnemie - 16, true);
 		}
 		
 		else if(state == 2) {
@@ -93,34 +95,24 @@ public class DodgeBehavior extends EventListener {
 		}
 		else if(state == 3) {
 			if(!left) {
-				ActionFactory.arcMove(90, 30, true);
+				ActionFactory.arcMove(180, 40, true);
 			}
 			else {
-				ActionFactory.arcMove(-90, -30, true);
+				ActionFactory.arcMove(-180, -40, true);
 			}
 		}
 		else if(state == 4) {
+			if(left)
+				ActionFactory.rotate(90, true);
+			else
+				ActionFactory.rotate(-90, true);
+			state = 5;
+		}
+		if(state == 5)
 			if(clawsOpen)
 			{
 				ActionFactory.useClaws(1,true);
 			}
-			state = 5;
-		}
-		if(state == 5)
 			stop();
-	}
-	
-	private boolean frontOfWall()
-	{
-		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
-		if(myPose.getX() > 60 && myPose.getHeading()%360 < 145)
-			return true;
-		else if(myPose.getX() < -60 && (myPose.getHeading()-180)%360 < 145)
-			return true;
-		else if(myPose.getY() < -120 && (myPose.getHeading()-180)%360 < 55)
-			return true;
-		else if(myPose.getY() > 120 && myPose.getHeading()%360 < 55)
-			return true;
-		return false;
 	}
 }
