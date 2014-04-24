@@ -1,5 +1,6 @@
 package main;
 
+import field.Field;
 import actions.ActionFactory;
 import actions.Event;
 import actions.TypeEvent;
@@ -24,10 +25,10 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.right);
     	
-    	//EssaiBehavior behavior = new EssaiBehavior();
+    	EssaiBehavior behavior = new EssaiBehavior();
     	//NaiveStartBehavior behavior = new NaiveStartBehavior();
         //CalibLightLine behavior = new CalibLightLine();
-    	CalibLight behavior = new CalibLight();
+    	//CalibLight behavior = new CalibLight();
     	//TestFollowLineBehavior behavior = new TestFollowLineBehavior();
     	//TestGoToBehavior behavior = new TestGoToBehavior();
     	//TestMusic behavior = new TestMusic();
@@ -44,5 +45,11 @@ public class Main {
     	Button.ENTER.waitForPressAndRelease();
     	ActionFactory.useClaws(1.0f, false);
     	robot.warn(new Event(TypeEvent.SHUTDOWN));
+		System.out.println("");
+    	for(int i = 0; i < 9; ++i) {
+    		if(!Field.getInstance().isPresent(Field.getInstance().getPuck(i)))
+    			System.out.print("N");
+    		System.out.print("P"+i+" ");
+    	}
     }
 }

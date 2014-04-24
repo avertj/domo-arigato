@@ -93,7 +93,7 @@ public class ScoreBehavior extends EventListener {
 			ActionFactory.useClaws(0.0f, true);
 			Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 			Point frontPose = new Point((int)myPose.getX(), (int)myPose.getY());
-			frontPose.translate((int)Math.cos(myPose.getHeading()) * 8, (int)Math.sin(myPose.getHeading()) * 8);
+			frontPose.translate((int)(Math.cos(myPose.getHeading()) * 12.5), (int)(Math.sin(myPose.getHeading()) * 12.5));
 			EnumPuck puck = Geometry.closest(frontPose);
 			if(puck != null) {
 				Field.getInstance().setPresent(puck, false);

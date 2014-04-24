@@ -17,8 +17,8 @@ public class Geometry {
 		Rectangle rect = new Rectangle(a1.x - Field.PUCK_RADIUS, a1.y - Field.PUCK_RADIUS, b1.x - Field.PUCK_RADIUS, b1.y - Field.PUCK_RADIUS);
 		for(int i = 0; i < 9; ++i) {
 			EnumPuck puck = EnumPuck.values()[i];
-			if(Field.getInstance().isPresent(puck) && rect.contains(Field.getInstance().getPuck(puck)))
-				result.add(Field.getInstance().getPuck(puck));
+			if(Field.getInstance().isPresent(puck) && rect.contains(Field.getInstance().getPosition(puck)))
+				result.add(Field.getInstance().getPosition(puck));
 		}
 		return result;
 	}
@@ -33,7 +33,7 @@ public class Geometry {
 		EnumPuck result = null;
 		for(int i = 0; i < 9; ++i) {
 			EnumPuck puck = EnumPuck.values()[i];
-			if(Field.getInstance().getPuck(puck).distance(a) < 10)
+			if(Field.getInstance().getPosition(puck).distance(a) < 15)
 				result = puck;
 		}
 		return result;
@@ -189,7 +189,6 @@ public class Geometry {
 			Robot.getInstance().getOdometryPoseProvider().setY(120 - offset);
 			break;
 		}
-		System.out.println("H = " + Robot.getInstance().getOdometryPoseProvider().getPose().getHeading());
 	}
 
 	public static void adjustYWhite() {

@@ -8,6 +8,7 @@ public class Field {
 	public static final int PUCK_RADIUS = 15;
 	private Point[] positions;
 	private boolean[] present;
+	private EnumPuck[] pucks = {EnumPuck.NW, EnumPuck.N, EnumPuck.NE, EnumPuck.W, EnumPuck.M, EnumPuck.E, EnumPuck.SW, EnumPuck.S, EnumPuck.SE};
 
 	private static Field INSTANCE = new Field();
 
@@ -25,8 +26,12 @@ public class Field {
 		}
 	}
 
-	public Point getPuck(EnumPuck p) {
+	public Point getPosition(EnumPuck p) {
 		return this.positions[p.getNum()];
+	}
+	
+	public EnumPuck getPuck(int i) {
+		return pucks[i];
 	}
 
 	public static Field getInstance() {

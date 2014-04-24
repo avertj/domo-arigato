@@ -13,13 +13,14 @@ public class FollowLineBehavior extends EventListener {
 	private float radiusCalibration;
 	private Pose start;
 	private int left;
+	private int saveState;
 	
 	public FollowLineBehavior(int distance, boolean left) {
 		this.left = 1;
 		if(left)
 			this.left = -1;
 		this.distance = distance;
-		radiusCalibration = 300.0f;
+		radiusCalibration = 100.0f;
 		start = Robot.getInstance().getOdometryPoseProvider().getPose();
 	}
 
@@ -27,8 +28,10 @@ public class FollowLineBehavior extends EventListener {
 		switch(event.getTypeEvent())
 		{
 		case ROBOT_DETECTED :
-			if(state > -1)
+			if(state > -1) {
+				saveState = state;
 				state = -1;
+			}
 			else
 				ignore();
 			break;
@@ -43,8 +46,12 @@ public class FollowLineBehavior extends EventListener {
 			state = 3;
 			break;
 		case CHILDBEHAVIOR_END :
-			if(state == -1)
-				state = 0;
+			if(state == -1) {
+				if(event.getName().equals("Stayed"))
+					state = saveState;
+				else
+					state = 0;
+			}
 			else
 				ignore();
 			break;
@@ -56,7 +63,7 @@ public class FollowLineBehavior extends EventListener {
 
 	protected void act() {
 		if(state == -1) {
-			doBehavior(new WaitMoveBehavior()); //Pas encore géré, c'est a faire.
+			doBehavior(new WaitMoveBehavior());
 		}
 		else if(state == 0) {
 			// On cherche a savoir si on es bien sur une ligne.
