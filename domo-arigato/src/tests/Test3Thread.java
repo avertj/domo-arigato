@@ -3,7 +3,6 @@ package tests;
 import lejos.robotics.navigation.Pose;
 import main.AlignementBehavior;
 import main.FollowLineBehavior;
-import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
 import robot.Robot;

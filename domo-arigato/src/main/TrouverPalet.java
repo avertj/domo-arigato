@@ -4,7 +4,6 @@ import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
 import robot.Robot;
-import utils.Tuple;
 
 public class TrouverPalet extends EventListener {
 	int state = -1;

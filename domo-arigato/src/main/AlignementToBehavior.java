@@ -5,7 +5,6 @@ import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
 import robot.Robot;
-import utils.Geometry;
 
 public class AlignementToBehavior extends EventListener {
 	int state = 0;
@@ -37,7 +36,7 @@ public class AlignementToBehavior extends EventListener {
 		case WHITE_DETECTED :
 			c = "White";
 		case COLOR_DETECTED :
-			if(event.getName().equals(color)) {
+			if(event.getName().equals(color) || c.equals(color)) {
 				if(state == 1) {
 					state = 2;
 				}

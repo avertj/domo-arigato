@@ -1,9 +1,6 @@
 package tests;
 
-import lejos.robotics.navigation.Pose;
 import main.FollowLineBehavior;
-import main.FollowLineBehavior;
-import main.GoToBehavior;
 import robot.EventListener;
 import actions.Event;
 

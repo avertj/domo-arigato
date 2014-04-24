@@ -9,21 +9,15 @@ import lejos.robotics.navigation.Pose;
 import lejos.robotics.objectdetection.Feature;
 import lejos.robotics.objectdetection.FeatureDetector;
 import lejos.robotics.objectdetection.FeatureListener;
-import lejos.robotics.objectdetection.RangeFeatureDetector;
 
 public class Sonar implements FeatureListener{
-	private final float MAX_RANGE = 400.0f;
-	private final int TIMER_DETECTION = 10;
 	private UltrasonicSensor us;
-	private RangeFeatureDetector rfd;
 	private ArrayList<ArrayList<Float>> lectures;
 	private ArrayList<Pose> poses;
 	private static final Object lock = new Object();
 	private static final int SIZE_LECTURE = 5;
-	private long time = 0;
 	private int MinDistPallet=23;
 	private int MaxDistPallet=60;
-	private int lastMinDist = 70;
 	private SonarRun thread;
 	
 	
@@ -60,7 +54,6 @@ public class Sonar implements FeatureListener{
 				lectures.remove(0);
 				poses.remove(0);
 			}
-			time = System.currentTimeMillis();
 		}
 	}
 	

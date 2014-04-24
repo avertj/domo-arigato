@@ -1,14 +1,10 @@
 package robot;
 
-import java.util.Date;
-
 import actions.RunnableRobot;
-import lejos.nxt.I2CPort;
 import lejos.nxt.I2CSensor;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.addon.ColorHTSensor;
-import lejos.util.Delay;
 
 public class ColorEyes {
 	public ColorHTSensor cs;

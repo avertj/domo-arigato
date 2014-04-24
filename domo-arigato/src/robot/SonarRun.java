@@ -2,7 +2,6 @@ package robot;
 
 import java.util.ArrayList;
 
-import utils.Geometry;
 import lejos.robotics.navigation.Pose;
 import lejos.util.Delay;
 import actions.Event;

@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.Point;
-import java.util.ArrayList;
 
 import field.EnumPuck;
 import field.Field;
@@ -19,9 +18,9 @@ public class MainBehavior extends EventListener {
 	}
 	private State state = State.START;
 	private boolean sensAlignement = false;
+	private Field field = Field.getInstance();
 	
 	public void warn(Event event) {
-		Field field = Field.getInstance();
 		Pose pose=null;
 		switch(event.getTypeEvent())
 		{
@@ -162,22 +161,19 @@ public class MainBehavior extends EventListener {
 
 	public void act() {
 		Pose pose = null;
-		if(state == State.START) {
+		if(state == State.START) { // Au depart, on suis la ligne sur laquelle on est posé.
 			pose = Robot.getInstance().getOdometryPoseProvider().getPose();
 			if(pose.getX()<0)
 				sensAlignement=true;
-			System.out.println("X = " + ((int) (pose.getX())));
-			System.out.println("Y = " + ((int) pose.getY()));
-			System.out.println("H = " + pose.getHeading());
 			Robot.getInstance().getMotion().getPilot().setRotateSpeed(100);
 			doBehavior(new FollowLineBehavior(100, false));
 		}
-		else if(state == State.SCORE_FIRST_PUCK) {
+		else if(state == State.SCORE_FIRST_PUCK) { // Une fois qu'on a touché le palet, on va marquer.
 			doBehavior(new ScoreBehavior());
 		}
-		else if(state == State.GO_TO_MIDDLE) {
+		else if(state == State.GO_TO_MIDDLE) { // Dans cette etat on se rend sur la ligne du milieu en évitant de taper d'autres palet.
 			pose = Robot.getInstance().getOdometryPoseProvider().getPose();
-			if(Geometry.barelyEqualsCoord(pose.getY(), 0, 2)) {
+			if(Geometry.barelyEqualsCoord(pose.getY(), 0, 2)) { // Si on est deja sur cette ligne, on essaye de la suivre.
 				if(Robot.getInstance().getEyes().onNoise()) {
 					doBehavior(new AlignementStaticBehavior(!sensAlignement, "BlackY"));
 				}
@@ -204,7 +200,7 @@ public class MainBehavior extends EventListener {
 					doBehavior(new AlignementToBehavior(new Pose(85, 0, 0), sensAlignement, "BlackY"));
 			}
 		}
-		else if(state == State.GET_MIDDLE_PUCK) {
+		else if(state == State.GET_MIDDLE_PUCK) { // On attrape le palet qui est sur la ligne du milieu.
 			pose = Robot.getInstance().getOdometryPoseProvider().getPose();
 			if(Geometry.barelyEqualsHeading(pose.getHeading(), 0, 5)) {
 				ActionFactory.rotate(15, false);
@@ -214,7 +210,7 @@ public class MainBehavior extends EventListener {
 			else
 				doBehavior(new FollowLineBehavior(40, sensAlignement));
 		}
-		else if(state == State.SCORE_MIDDLE_PUCK) {
+		else if(state == State.SCORE_MIDDLE_PUCK) { // On va marquer notre point.
 			doBehavior(new ScoreBehavior());
 		}
 		else if(state == State.GO_TO_LOW) {
@@ -224,7 +220,7 @@ public class MainBehavior extends EventListener {
 					doBehavior(new AlignementStaticBehavior(!sensAlignement, "Blue"));
 				}
 				else {
-					state = State.GET_MIDDLE_PUCK;
+					state = State.GET_LOW_PUCK;
 					doBehavior(new FollowLineBehavior(40, sensAlignement));
 				}
 			}
@@ -259,7 +255,7 @@ public class MainBehavior extends EventListener {
 					doBehavior(new AlignementStaticBehavior(!sensAlignement, "Green"));
 				}
 				else {
-					state = State.GET_MIDDLE_PUCK;
+					state = State.GET_HIGH_PUCK;
 					doBehavior(new FollowLineBehavior(40, sensAlignement));
 				}
 			}
@@ -295,6 +291,9 @@ public class MainBehavior extends EventListener {
 		}
 	}
 	
+	/**
+	 * On utilise cette methode pour retirer un palet du plateau qui se trouve environ à 20 centimetre derriere le robot.
+	 */
 	private void removePluckBehind() {
 		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		Point behindPose = new Point((int)myPose.getX(), (int)myPose.getY());

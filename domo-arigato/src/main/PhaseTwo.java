@@ -7,11 +7,9 @@ import music.MarioBros;
 import actions.ActionFactory;
 import actions.Event;
 import robot.EventListener;
-import robot.Robot;
 
 public class PhaseTwo extends EventListener {
 	private int state = 0;
-	private String out;
 	private Pose[] poses = new Pose[2];
 
 	public void warn(Event event) {
@@ -27,6 +25,7 @@ public class PhaseTwo extends EventListener {
 	}
 
 	protected void act() {
+		// Dans l'état 0 on initialise deux points puis on lance l'algorithme PhaseTwoPart au premier point.
 		if(state == 0) {
 			ActionFactory.playMusic(new MarioBros(), true);
 			poses[0] = new Pose(Field.getInstance().getPosition(EnumPuck.NW).x+50, Field.getInstance().getPosition(EnumPuck.NW).y-30, 90);
@@ -34,6 +33,7 @@ public class PhaseTwo extends EventListener {
 			doBehavior(new PhaseTwoPart(poses[state]));
 		}
 		else if(state == 1) {
+			// On lance l'algorithme PhaseTwoPart au second point.
 			doBehavior(new PhaseTwoPart(poses[state]));
 		}
 		else if(state == 2) {

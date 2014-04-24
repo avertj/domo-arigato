@@ -1,12 +1,10 @@
 package tests;
 
 import lejos.nxt.Button;
-import lejos.nxt.ColorSensor;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.addon.ColorHTSensor;
-import lejos.util.Delay;
 import robot.Robot;
 import robot.StartPosition;
 
@@ -28,7 +26,7 @@ public class TestColorSensor {
         System.out.println(cs.getColor().getRed());
     	while(true) {
         	Button.ENTER.waitForPressAndRelease();
-    		LightSensor ls = new LightSensor(SensorPort.S4);
+    		new LightSensor(SensorPort.S4);
     		System.out.println(SensorPort.S4.readRawValue());
     		System.out.println(SensorPort.S4.readValue());
     	}

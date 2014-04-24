@@ -9,6 +9,11 @@ public class Utils {
 	private static final int BLACK_THRESHOLD = 30;
 	private static final int WHITE_THRESHOLD = 600;
 	
+	/**
+	 * We didn't used this method, we don't have a ColorSensor. Change it with your Color Threshold to make it work.
+	 * @param color
+	 * @return
+	 */
 	public static String getColorName(Color color) {
 		int r = color.getRed();
 		int g = color.getGreen();

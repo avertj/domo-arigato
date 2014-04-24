@@ -10,6 +10,13 @@ import field.EnumPuck;
 import field.Field;
 
 public class Geometry {
+	/**
+	 * Use this to know what Pluck are in a rectangle
+	 * @param a One point of the rectangle.
+	 * @param b The opposite point of the rectangle.
+	 * @return The list of pluck points in the rectangle.
+	 */
+	@SuppressWarnings("unused")
 	private static ArrayList<Point> inside(Point a, Point b) {
 		Point a1 = new Point(Math.min(a.x, b.x), Math.min(a.y, b.y));
 		Point b1 = new Point(Math.max(a.x, b.x), Math.max(a.y, b.y));
@@ -23,12 +30,11 @@ public class Geometry {
 		return result;
 	}
 	
-	public static ArrayList<Point> getPath(Point a, Point b) {
-		ArrayList<Point> result = new ArrayList<Point>();
-		ArrayList<Point> pucks = inside(a, b);
-		return result;
-	}
-	
+	/**
+	 * Use this to know what pluck is the closest of a point.
+	 * @param a The point.
+	 * @return The closest pluck.
+	 */
 	public static EnumPuck closest(Point a) {
 		EnumPuck result = null;
 		for(int i = 0; i < 9; ++i) {
@@ -96,6 +102,9 @@ public class Geometry {
 		}
 	}
 	
+	/**
+	 * We don't use this because our lightSensor make mistakes
+	 */
 	public static void adjustX() {/*
 		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		float offset = (float) (8.5*Math.cos(myPose.getHeading()*Math.PI/180));
@@ -125,6 +134,9 @@ public class Geometry {
 		}*/
 	}
 	
+	/**
+	 * We made this to replace adjustX() call this only if you're following a line and you just bumped a pluck.
+	 */
 	public static void adjustXBump() {
 		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		float offset = (float) (12.5*Math.cos(myPose.getHeading()*Math.PI/180));
@@ -155,6 +167,9 @@ public class Geometry {
 		System.out.println("Geo X : "+Robot.getInstance().getOdometryPoseProvider().getPose().getX());
 	}
 	
+	/**
+	 * We use this to adjust your Y position, we use it in the sonarRun and during a followLineBehavior
+	 */
 	public static void adjustY() {
 		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		float offset = (float) (8.5*Math.sin(myPose.getHeading()*Math.PI/180));
@@ -192,6 +207,9 @@ public class Geometry {
 		}
 	}
 
+	/**
+	 * Use this only if you're on a white line.
+	 */
 	public static void adjustYWhite() {
 		Pose myPose = Robot.getInstance().getOdometryPoseProvider().getPose();
 		float offset = (float) (8.5*Math.sin(myPose.getHeading()*Math.PI/180));
