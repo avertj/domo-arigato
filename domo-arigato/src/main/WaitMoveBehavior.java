@@ -13,15 +13,16 @@ public class WaitMoveBehavior extends EventListener {
 	float distEnnemie;
 	boolean clawsOpen = false;
 	boolean left = false;
+	String result = "Dodged";
 	
 	public void warn(Event event) {
 		switch(event.getTypeEvent())
 		{
 		case END_ROBOT_DETECTED :
-			if(state == 0)
+			if(state == 0 || state == 1) {
 				state = 5;
-			else if(state == 1)
-				state = 5;
+				result = "Stayed";
+			}
 			else
 				ignore();
 			break;
@@ -79,7 +80,6 @@ public class WaitMoveBehavior extends EventListener {
 			System.out.println(distEnnemie);
 			ActionFactory.goForward(distEnnemie - 16, true);
 		}
-		
 		else if(state == 2) {
 			//on joue un petit son devant le robot ennemie pour le narguer
 			BipRobot bip = new BipRobot();
@@ -106,13 +106,13 @@ public class WaitMoveBehavior extends EventListener {
 				ActionFactory.rotate(90, true);
 			else
 				ActionFactory.rotate(-90, true);
-			state = 5;
 		}
-		if(state == 5)
+		else if(state == 5) {
 			if(clawsOpen)
 			{
 				ActionFactory.useClaws(1,true);
 			}
-			stop();
+			stop(result);
+		}
 	}
 }

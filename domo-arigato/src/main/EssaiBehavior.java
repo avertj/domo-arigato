@@ -48,10 +48,6 @@ public class EssaiBehavior extends EventListener {
 	@Override
 	protected void act() {
 		if(state == State.START) {
-			Pose pose = Robot.getInstance().getOdometryPoseProvider().getPose();
-			System.out.println("X = " + ((int) (pose.getX())));
-			System.out.println("Y = " + ((int) pose.getY()));
-			System.out.println("H = " + pose.getHeading());
 			Robot.getInstance().getMotion().getPilot().setRotateSpeed(180);
 			poses.add(new Pose(80, 0, 0));
 			chaine.add("BlackY");
@@ -88,10 +84,6 @@ public class EssaiBehavior extends EventListener {
 			String s = chaine.remove(0);
 			doBehavior(new FollowLineBehavior(150, s.equals("Green")));
 		} else if(state == State.PLUCK_BUMPED2) {
-			Pose pose = Robot.getInstance().getOdometryPoseProvider().getPose();
-			System.out.println("X = " + ((int) (pose.getX())));
-			System.out.println("Y = " + ((int) pose.getY()));
-			System.out.println("H = " + pose.getHeading());
 			doBehavior(new ScoreBehavior());
 		} else if(state == State.SCORED2) {
 			stop();

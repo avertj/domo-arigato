@@ -189,7 +189,6 @@ public class Geometry {
 			Robot.getInstance().getOdometryPoseProvider().setY(120 - offset);
 			break;
 		}
-		System.out.println("H = " + Robot.getInstance().getOdometryPoseProvider().getPose().getHeading());
 	}
 
 	public static void adjustYWhite() {
