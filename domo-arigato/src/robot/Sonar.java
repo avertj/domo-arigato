@@ -22,8 +22,8 @@ public class Sonar implements FeatureListener{
 	private static final int SIZE_LECTURE = 5;
 	private long time = 0;
 	private int MinDistPallet=23;
-	private int MaxDistPallet=50;
-	private int lastMinDist = 60;
+	private int MaxDistPallet=60;
+	private int lastMinDist = 70;
 	private SonarRun thread;
 	
 	

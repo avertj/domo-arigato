@@ -33,7 +33,7 @@ public class Geometry {
 		EnumPuck result = null;
 		for(int i = 0; i < 9; ++i) {
 			EnumPuck puck = EnumPuck.values()[i];
-			if(Field.getInstance().getPosition(puck).distance(a) < 15)
+			if(Field.getInstance().getPosition(puck).distance(a) < 25)
 				result = puck;
 		}
 		return result;
@@ -152,6 +152,7 @@ public class Geometry {
 			Robot.getInstance().getOdometryPoseProvider().setPose(new Pose(50 - offset, myPose.getY(), myPose.getHeading()));
 			break;
 		}
+		System.out.println("Geo X : "+Robot.getInstance().getOdometryPoseProvider().getPose().getX());
 	}
 	
 	public static void adjustY() {

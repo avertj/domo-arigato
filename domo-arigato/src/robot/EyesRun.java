@@ -13,9 +13,9 @@ public class EyesRun extends RunnableRobot {
 	SensorPort port;
 	lejos.robotics.Color color;
 	int lightValue;
-	int WHITE = 462;
-	public static final int LOW_COLORS = 530;
-	public static final int HIGH_COLORS = 605;
+	int WHITE = 475;
+	public static final int LOW_COLORS = 540;
+	public static final int HIGH_COLORS = 612;
 	int prev;
 	int state;
 	

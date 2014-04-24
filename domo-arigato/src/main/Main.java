@@ -25,7 +25,9 @@ public class Main {
     	robot.initSensors(SensorPort.S1, SensorPort.S4, SensorPort.S3);
     	robot.initMotors(Motor.C, Motor.A, Motor.B, StartPosition.right);
     	
-    	EssaiBehavior behavior = new EssaiBehavior();
+    	MainBehavior behavior = new MainBehavior();
+    	//PhaseTwo behavior = new PhaseTwo();
+    	//EssaiBehavior behavior = new EssaiBehavior();
     	//NaiveStartBehavior behavior = new NaiveStartBehavior();
         //CalibLightLine behavior = new CalibLightLine();
     	//CalibLight behavior = new CalibLight();
@@ -51,5 +53,6 @@ public class Main {
     			System.out.print("N");
     		System.out.print("P"+i+" ");
     	}
+    	Button.ENTER.waitForPressAndRelease();
     }
 }

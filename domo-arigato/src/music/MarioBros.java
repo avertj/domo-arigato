@@ -3,7 +3,7 @@ package music;
 import lejos.util.Delay;
 
 public class MarioBros extends Music {
-	private static final int speed = 300;
+	private static final int speed = 200;
 	private static final int octave = 2;
 	
 	public MarioBros() {

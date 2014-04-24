@@ -12,7 +12,7 @@ import actions.TypeEvent;
 public class SonarRun extends RunnableRobot {
 	private Sonar sonar;
 	private static final int DELAY = 10;
-	private static final int WALL_DETECTION = 45;
+	private static final int WALL_DETECTION = 65;
 	private float lastMinDist = 60.0f;
 	private ArrayList<Float> distances = new ArrayList<Float>();
 	private boolean wall;
@@ -48,21 +48,28 @@ public class SonarRun extends RunnableRobot {
 					if(y > 150 - WALL_DETECTION && (h > 20 && h < 160)) {
 						wall = true;
 					}
-					else if(x > 100 - WALL_DETECTION && (h > 310 || h < 50)) {
+					else if(x > 110 - WALL_DETECTION && (h > 310 || h < 50)) {
 						wall = true;
 					}
-					else if(x < -100 + WALL_DETECTION && (h > 130 && h < 230)) {
+					else if(x < -110 + WALL_DETECTION && (h > 130 && h < 230)) {
 						wall = true;
 					}
+					if(wall)
+						Robot.getInstance().warn(new Event(TypeEvent.WALL_DETECTED));
 					else
 						Robot.getInstance().warn(new Event(TypeEvent.ROBOT_DETECTED));
 				}
 				else if(min > sonar.getMinDistPallet() && lastMinDist <= sonar.getMinDistPallet()) {
-					if(wall)
+					if(wall) {
 						wall = false;
+						Robot.getInstance().warn(new Event(TypeEvent.END_WALL_DETECTED));
+					}
 					else
 						Robot.getInstance().warn(new Event(TypeEvent.END_ROBOT_DETECTED));
 				}
+				if((min > sonar.getMinDistPallet() && min < sonar.getMaxDistPallet()) &&
+						(lastMinDist < sonar.getMinDistPallet() || lastMinDist < sonar.getMaxDistPallet()))
+					Robot.getInstance().warn(new Event(TypeEvent.POSSIBLE_PLUCK_DETECTED));
 				lastMinDist = min;
 			}
 		}
